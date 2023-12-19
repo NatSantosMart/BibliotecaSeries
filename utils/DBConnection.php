@@ -5,7 +5,7 @@ class DBConnection {
     private $db_host = 'localhost';
     private $db_user = 'root';
     private $db_password = 'root';
-    private $db_db = 'Bliblioteca_series';
+    private $db_db = 'Biblioteca_series';
 
     // Constructor privado para evitar la creación de instancias externas
     private function __construct() {
