@@ -3,7 +3,6 @@
 
     
     function listPlatforms() {
-
         $model = new Platform(null, null); 
         $platformList = $model->getAll();
         $platformObjectArray = [];
@@ -13,5 +12,16 @@
             array_push($platformObjectArray, $platformObject); 
         }
         return $platformObjectArray; 
+    }
+
+    function storePlatform($platformName){ 
+        $newPlatform = new Platform(null, $platformName); 
+        return $platformCreated = $newPlatform->store(); 
+    }
+    function deletePlatform($platformId){
+        $platform = new Platform($platformId); 
+        $platformDeleted = $platform->delete();
+
+        return $platformDeleted; 
     }
 ?>
