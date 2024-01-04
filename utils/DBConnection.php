@@ -18,7 +18,7 @@ class DBConnection {
 
         // Manejo de errores de conexión
         if ($this->conn->connect_error) {
-            die('Errno: ' . $this->conn->connect_errno . '<br>Error: ' . $this->conn->connect_error);
+            die('Error de conexión: ' . $this->conn->connect_error);
         }
     }
 

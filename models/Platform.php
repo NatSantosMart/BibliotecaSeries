@@ -9,7 +9,6 @@
             $this->id = $idPlatform; 
             $this->name = $namePlatform; 
         }
-        
         public function setId($id){
             $this->id = $id; 
         }
@@ -53,6 +52,25 @@
             $mysqli->close(); 
             return $platformCreated; 
         }   
+
+        function update(){
+            $platformEdited = false; 
+            $mysqli = DBConnection::getInstance()->getConnection(); 
+
+            // TO DO: Comprobar que existe antes de editar
+            $resultExistingPlatform = $mysqli->query("SELECT name FROM Platform WHERE name = '$this->name'");
+
+            if ($resultExistingPlatform->num_rows == 0) {
+                // No existe una plataforma con el mismo nombre, se puede editar
+                $updateQuery = "UPDATE Platform set name = '" . $this->name . "' WHERE id = " . $this->id;
+
+                if ($resultUpdate = $mysqli->query($updateQuery)) {
+                    $platformEdited = true;
+                }
+            }
+            $mysqli->close(); 
+            return $platformEdited; 
+        }  
         
         function delete(){
             $platformDeleted = false; 
@@ -70,12 +88,17 @@
             $mysqli->close(); 
             return $platformCreated; 
         }
-        public function showSuccessMessage($message, $link, $linkText) {
-            HTMLMensajeGenerador::generarMensaje($message, true, $link, $linkText);
+
+        function getItem(){
+            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $query = $mysqli->query('SELECT * FROM Platform WHERE id = ' . $this->id);  
+
+            foreach($query as $item){
+                $itemObject = new Platform($item["id"], $item["name"]); 
+                break; 
+            }
+            //$mysqli->close();
+            return $itemObject; 
         }
-    
-        public function showErrorMessage($message, $link, $linkText) {
-            HTMLMensajeGenerador::generarMensaje($message, false, $link, $linkText);
-        } 
     }
 ?>
