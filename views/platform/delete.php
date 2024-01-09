@@ -18,7 +18,7 @@
     </style>
     <body>
         <?php 
-                $idPlatform = $_POST['platformId']; 
+                $idPlatform = $_GET['platformId']; 
                 $platformDeleted = deletePlatform($idPlatform);
 
                 if ($platformDeleted) {
