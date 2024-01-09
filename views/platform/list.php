@@ -49,11 +49,31 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a class="btn btn-success mr-2" href="createEdit.php?action=edit&id=<?php echo $platform->getId();?>">Editar</a>
-
+                          
                                     <form name="delete_platform" action="delete.php" method="POST" style="...">
                                         <input type="hidden" name="platformId" value="<?php echo $platform->getId();?>"/>  
                                         <button type="submit" class="btn btn-danger">Borrar</button>
                                     </form>
+                                </div>
+
+                                <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Eliminar plataforma</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>¿Está seguro de eliminar la plataforma? Si pulsa acepta se eliminará permanentemente.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <button type="button" class="btn btn-danger" onclick="submitDeleteForm()">Sí</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

@@ -27,7 +27,7 @@
     }
 
     function deletePlatform($platformId){
-        $platform = new Platform($platformId); 
+        $platform = new Platform($platformId, null); 
         $platformDeleted = $platform->delete();
 
         return $platformDeleted; 

@@ -76,17 +76,18 @@
             $platformDeleted = false; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            $resultExistingPlatform = $mysqli->query("SELECT id FROM Platform WHERE id = '$this->id'");
+            //Comprueba que existe la plataforma antes de borrarla
+            $resultExistingPlatform = $mysqli->query('SELECT id FROM Platform WHERE id = ' . $this->id);
 
-            if ($resultExistingPlatform->num_rows == 0) {
-                $deleteQuery = "DELETE FROM Platform where id =" . $this->id;
+            if ($resultExistingPlatform->num_rows != 0) { 
+                $deleteQuery = "DELETE FROM Platform where id = " . $this->id;
 
-                if ($resultInsert = $mysqli->query($insertQuery)) {
-                    $platformCreated = true;
+                if ($result = $mysqli->query($deleteQuery)) {
+                    $platformDeleted = true;
                 }
             }
             $mysqli->close(); 
-            return $platformCreated; 
+            return $platformDeleted; 
         }
 
         function getItem(){
