@@ -62,7 +62,13 @@
                         <div class="mb-3">
                             <label for="platformName" class="form-label">Nombre plataforma</label>
                             <input id="platformName" name="platformName" type="text" placeholder="Introduce el nombre de la plataforma" class="form-control" required value="<?php if(isset($platformObject)) echo $platformObject->getName(); ?>"/>
-                            <input type="hidden" name="platformId" value="<?php echo $idPlatform; ?>"/>
+                            <?php 
+                                if ($action === 'edit') {
+                            ?>                           
+                                <input type="hidden" name="platformId" value="<?php echo $idPlatform; ?>"/>
+                            <?php 
+                               }
+                            ?>
                         </div>
                         <input type="submit" value="<?php echo ($action === 'create') ? 'Crear' : 'Editar' ?>" class="btn btn-primary" name="buttonCreateEdit"/>
                     </form>
