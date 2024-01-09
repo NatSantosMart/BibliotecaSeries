@@ -1,5 +1,6 @@
 <?php
     require_once('../../controllers/PlatformController.php');
+    require_once('../../assets/scripts/showMessage.php');
 ?>
 
 <!DOCTYPE html>
@@ -55,26 +56,9 @@
                                         Borrar
                                     </button>
                                     
-                                    <div class="modal fade" id="confirmDeleteModal_<?php echo $platform->getId(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar plataforma</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>¿Está seguro de eliminar la plataforma? Si pulsa "Sí" se eliminará permanentemente.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                    <button type="button" class="btn btn-danger" onclick="deletePlatform(<?php echo $platform->getId(); ?>)">Sí</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                 <?php 
+                                     MessageHTML::showDeleteConfirmationModal($platform->getId(), 'Eliminar plataforma', '¿Estás seguro de eliminar la plataforma? ');
+                                 ?>                         
                             </td>
                         </tr>
                         <?php
@@ -87,14 +71,14 @@
                 ?>
                 <div class="alert alert-warning" role="alert">Aún no existen plataformas.</div>
                 <?php 
-                    }
+                    }       
                 ?>
             </div>
         </div>
     </div>
 
     <script>
-        function deletePlatform(platformId) {
+        function deleteItem(platformId) {
             window.location.href = 'delete.php?platformId=' + platformId;
         }
     </script>

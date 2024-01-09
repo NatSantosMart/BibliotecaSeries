@@ -9,5 +9,26 @@ class MessageHTML {
         echo '</div>';
         echo '</div>';
     }
+    public static function showDeleteConfirmationModal($platformId, $titulo, $message) {
+        echo '<div class="modal fade" id="confirmDeleteModal_' . $platformId . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+        echo '<div class="modal-dialog" role="document">';
+        echo '<div class="modal-content">';
+        echo '<div class="modal-header">';
+        echo '<h5 class="modal-title" id="exampleModalLabel">' . $titulo .'</h5>';
+        echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+        echo '<span aria-hidden="true">&times;</span>';
+        echo '</button>';
+        echo '</div>';
+        echo '<div class="modal-body">';
+        echo '<p>' . $message . 'Si acepta se eliminará permanentemente.' . '</p>';
+        echo '</div>';
+        echo '<div class="modal-footer">';
+        echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>';
+        echo '<button type="button" class="btn btn-danger" onclick="deleteItem(' . $platformId . ')">Sí</button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    }
 }
 ?>
