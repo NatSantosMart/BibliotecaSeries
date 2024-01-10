@@ -18,11 +18,11 @@
 <body>
     <div class="container">
         <div class="row">
-            <h1>Listado de plataformas</h1>
+            <h1>Listado de idiomas</h1>
         </div>
         <div class="row">
             <a class="btn btn-primary" href="createEdit.php?action=create" role="button">
-                <i class="fas fa-plus"></i> Crear plataforma
+                <i class="fas fa-plus"></i> Crear idioma
             </a>
         </div>
         <div class="row">
@@ -35,6 +35,7 @@
                     <thead>
                         <th>Id</th>
                         <th>Nombre</th>
+                        <th>ISO Code</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
@@ -49,6 +50,9 @@
                                 <?php echo $language->getName(); ?>
                             </td>
                             <td>
+                                <?php echo $language->getISOCode(); ?>
+                            </td>
+                            <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a class="btn btn-success mr-2" href="createEdit.php?action=edit&id=<?php echo $language->getId();?>">Editar</a>
 
@@ -57,7 +61,7 @@
                                     </button>
                                     
                                  <?php 
-                                     MessageHTML::showDeleteConfirmationModal($language->getId(), 'Eliminar plataforma', '¿Estás seguro de eliminar la plataforma? ');
+                                     MessageHTML::showDeleteConfirmationModal($language->getId(), 'Eliminar idioma', '¿Estás seguro de eliminar el idioma? ');
                                  ?>                         
                             </td>
                         </tr>
@@ -69,7 +73,7 @@
                 <?php
                     } else {   
                 ?>
-                <div class="alert alert-warning" role="alert">Aún no existen plataformas.</div>
+                <div class="alert alert-warning" role="alert">Aún no existen idiomas.</div>
                 <?php 
                     }       
                 ?>

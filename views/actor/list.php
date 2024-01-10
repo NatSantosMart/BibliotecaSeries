@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/LanguageController.php');
+    require_once('../../controllers/ActorController.php');
     require_once('../../assets/scripts/showMessage.php');
 ?>
 
@@ -18,46 +18,58 @@
 <body>
     <div class="container">
         <div class="row">
-            <h1>Listado de plataformas</h1>
+            <h1>Listado de actores</h1>
         </div>
         <div class="row">
             <a class="btn btn-primary" href="createEdit.php?action=create" role="button">
-                <i class="fas fa-plus"></i> Crear plataforma
+                <i class="fas fa-plus"></i> Crear actor
             </a>
         </div>
         <div class="row">
             <div class="col">
                 <?php 
-                    $languageList = listLanguages();
-                    if(count($languageList) > 0) {
+                    $actorList = listActors();
+                    if(count($actorList) > 0) {
                 ?>
                 <table class="table">
                     <thead>
                         <th>Id</th>
                         <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Fecha nacimiento</th>
+                        <th>Nacionalidad</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
                         <?php 
-                            foreach($languageList as $language){
+                            foreach($actorList as $actor){
                         ?>   
                         <tr>
                             <td>
-                                <?php echo $language->getId(); ?>
+                                <?php echo $actor->getId(); ?>
                             </td>
                             <td>
-                                <?php echo $language->getName(); ?>
+                                <?php echo $actor->getName(); ?>
+                            </td>
+                            <td>
+                                <?php echo $actor->getSurnames(); ?>
+                            </td>
+                            <td>
+                                <?php echo date('d/m/Y', strtotime($actor->getBirthdate())); ?>
+                            </td>
+                            <td>
+                                <?php echo $actor->getNationality(); ?>
                             </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-success mr-2" href="createEdit.php?action=edit&id=<?php echo $language->getId();?>">Editar</a>
+                                    <a class="btn btn-success mr-2" href="createEdit.php?action=edit&id=<?php echo $actor->getId();?>">Editar</a>
 
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal_<?php echo $language->getId(); ?>">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal_<?php echo $actor->getId(); ?>">
                                         Borrar
                                     </button>
                                     
                                  <?php 
-                                     MessageHTML::showDeleteConfirmationModal($language->getId(), 'Eliminar plataforma', '¿Estás seguro de eliminar la plataforma? ');
+                                     MessageHTML::showDeleteConfirmationModal($actor->getId(), 'Eliminar actor', '¿Estás seguro de eliminar el actor? ');
                                  ?>                         
                             </td>
                         </tr>
@@ -69,7 +81,7 @@
                 <?php
                     } else {   
                 ?>
-                <div class="alert alert-warning" role="alert">Aún no existen plataformas.</div>
+                <div class="alert alert-warning" role="alert">Aún no existen actores.</div>
                 <?php 
                     }       
                 ?>
@@ -78,8 +90,8 @@
     </div>
 
     <script>
-        function deleteItem(languageId) {
-            window.location.href = 'delete.php?languageId=' + languageId;
+        function deleteItem(actorId) {
+            window.location.href = 'delete.php?actorId=' + actorId;
         }
     </script>
 </body>
