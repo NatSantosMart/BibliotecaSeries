@@ -82,7 +82,7 @@
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
             // TO DO: Comprobar que existe antes de editar
-            $resultExistingDirector = $mysqli->query("SELECT name FROM Director WHERE name = '$this->name'");
+            $resultExistingDirector = $mysqli->query("SELECT id FROM Director WHERE name = '$this->name' AND id != $this->id");
 
             if ($resultExistingDirector->num_rows == 0) {
                 // No existe una plataforma con el mismo nombre, se puede editar

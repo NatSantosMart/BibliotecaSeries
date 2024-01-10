@@ -58,7 +58,7 @@
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
             // TO DO: Comprobar que existe antes de editar
-            $resultExistingPlatform = $mysqli->query("SELECT name FROM Platform WHERE name = '$this->name'");
+            $resultExistingPlatform = $mysqli->query("SELECT name FROM Platform WHERE name = '$this->name' AND id != $this->id");
 
             if ($resultExistingPlatform->num_rows == 0) {
                 // No existe una plataforma con el mismo nombre, se puede editar
