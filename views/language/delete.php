@@ -22,7 +22,7 @@
                 $languageDeleted = deleteLanguage($idLanguage);
 
                 if ($languageDeleted) {
-                    MessageHTML::showMessage('Idioma eliminada correctamente.', true, 'list.php', 'Volver al listado de plataformas');
+                    MessageHTML::showMessage('Idioma eliminado correctamente.', true, 'list.php', 'Volver al listado de plataformas');
                 } else {
                     MessageHTML::showMessage('El idioma no se ha eliminado correctamente.', false, 'list.php', 'Volver a intentarlo');
                 }
