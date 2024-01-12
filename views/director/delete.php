@@ -22,9 +22,9 @@
                 $directorDeleted = deleteDirector($idDirector);
 
                 if ($directorDeleted) {
-                    MessageHTML::showMessage('Director eliminado correctamente.', true, 'list.php', 'Volver al listado de directors');
+                    MessageHTML::showSuccessMessage('Director eliminado correctamente.', 'list.php', 'Volver al listado de directors');
                 } else {
-                    MessageHTML::showMessage('La director no se ha eliminado correctamente.', false, 'list.php', 'Volver a intentarlo');
+                    MessageHTML::showErrorMessage('La director no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
                 }
 
             ?>

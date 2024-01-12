@@ -1,6 +1,7 @@
 <?php 
     require_once('../../controllers/ActorController.php'); 
     require_once('../../assets/scripts/showMessage.php');
+    require_once('../../assets/scripts/validations.php'); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,7 @@
             <?php
                  $sendData = false; 
                  $action = isset($_GET['action']) ? $_GET['action'] : 'create';
+                 $fieldsToValidate = ['itemName', 'itemSurnames', 'itemBirthdate', 'itemNationality'];
 
                 //Editar actor
                 if ($action === 'edit') {
@@ -32,9 +34,21 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['actorName'])){
-                            $actorEdited =  updateActor($_POST['actorId'], $_POST['actorName'], $_POST['actorSurnames'], $_POST['actorBirthdate'], $_POST['actorNationality']); 
-                        }
+                        if (isset($_POST['itemName'])) {
+                            $validationResult = validateFields($_POST, $fieldsToValidate);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showErrorMessage("El actor no se ha editado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                            }
+                            else {
+                                $actorEdited =  updateActor($_POST['itemId'], $_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']); 
+                            }               
+                        }                        
                     }
                 } 
                 //Crear actor
@@ -44,10 +58,23 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['actorName'])){
-                            $actorCreated = storeActor($_POST['actorName'], $_POST['actorSurnames'], $_POST['actorBirthdate'], $_POST['actorNationality']); 
-                        }
+                        if (isset($_POST['itemName'])) {
+                            $validationResult = validateFields($_POST, $fieldsToValidate);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showErrorMessage("El actor no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                            }
+                            else {
+                                $actorCreated = storeActor($_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']); 
+                            }               
+                        }                        
                     }
+                    
                 }
                 if(!$sendData) {
 
@@ -62,23 +89,23 @@
 
                     <div class="row">
                         <div class="col-6">
-                            <label for="actorName" class="form-label">Nombre: </label>
-                            <input id="actorName" name="actorName" type="text" placeholder="Introduce el nombre" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getName(); ?>"/>
+                            <label for="itemName" class="form-label">Nombre: </label>
+                            <input id="itemName" name="itemName" type="text" placeholder="Introduce el nombre" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getName(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
-                                <input type="hidden" name="actorId" value="<?php echo $idActor; ?>"/>
+                                <input type="hidden" name="itemId" value="<?php echo $idActor; ?>"/>
                             <?php 
                                }
                             ?>
                         </div>
                         <div class="col-6">
-                            <label for="actorSurnames" class="form-label">Apellidos:</label>
-                            <input id="actorSurnames" name="actorSurnames" type="text" placeholder="Introduce los apellidos" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getSurnames(); ?>"/>
+                            <label for="itemSurnames" class="form-label">Apellidos:</label>
+                            <input id="itemSurnames" name="itemSurnames" type="text" placeholder="Introduce los apellidos" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getSurnames(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
-                                <input type="hidden" name="actorId" value="<?php echo $idActor; ?>"/>
+                                <input type="hidden" name="itemId" value="<?php echo $idActor; ?>"/>
                             <?php 
                                }
                             ?>
@@ -86,23 +113,23 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="actorBirthdate" class="form-label">Fecha nacimiento: </label>
-                            <input id="actorBirthdate" name="actorBirthdate" type="date" placeholder="Introduce la fecha de nacimiento" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getBirthdate(); ?>"/>
+                            <label for="itemBirthdate" class="form-label">Fecha nacimiento: </label>
+                            <input id="itemBirthdate" name="itemBirthdate" type="date" placeholder="Introduce la fecha de nacimiento" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getBirthdate(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
-                                <input type="hidden" name="actorId" value="<?php echo $idActor; ?>"/>
+                                <input type="hidden" name="itemId" value="<?php echo $idActor; ?>"/>
                             <?php 
                                }
                             ?>
                         </div>
                         <div class="col-6">
-                            <label for="actorNationality" class="form-label">Nacionalidad:</label>
-                            <input id="actorNationality" name="actorNationality" type="text" placeholder="Introduce la nacionalidad" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getNationality(); ?>"/>
+                            <label for="itemNationality" class="form-label">Nacionalidad:</label>
+                            <input id="itemNationality" name="itemNationality" type="text" placeholder="Introduce la nacionalidad" class="form-control" required value="<?php if(isset($actorObject)) echo $actorObject->getNationality(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
-                                <input type="hidden" name="actorId" value="<?php echo $idActor; ?>"/>
+                                <input type="hidden" name="itemId" value="<?php echo $idActor; ?>"/>
                             <?php 
                                }
                             ?>
@@ -119,12 +146,12 @@
                } else {
                     if ($action === 'create') {
                         if ($actorCreated) {
-                            MessageHTML::showMessage('Actor creado correctamente.', 'list.php', 'Volver al listado de actors');
+                            MessageHTML::showSuccessMessage('Actor creado correctamente.', 'list.php', 'Volver al listado de actors');
                         }
                     }
                     if ($action === 'edit') {
                         if ($actorEdited) {
-                            MessageHTML::showMessage('Actor editado correctamente.', 'list.php', 'Volver al listado de actors');
+                            MessageHTML::showSuccessMessage('Actor editado correctamente.', 'list.php', 'Volver al listado de actors');
                         }
                     }
                 }

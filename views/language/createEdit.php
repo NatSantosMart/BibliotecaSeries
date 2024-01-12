@@ -1,6 +1,7 @@
 <?php 
     require_once('../../controllers/LanguageController.php'); 
     require_once('../../assets/scripts/showMessage.php');
+    require_once('../../assets/scripts/validations.php'); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,7 @@
     <body>
         <div class="container">
             <?php
+                 $fieldsToValidate = ['itemName', 'itemISOCode'];
                  $sendData = false; 
                  $action = isset($_GET['action']) ? $_GET['action'] : 'create';
 
@@ -32,9 +34,21 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['languageName'])){
-                            $languageEdited =  updateLanguage($_POST['languageId'], $_POST['languageName'], $_POST['languageISOCode']); 
-                        }
+                        if (isset($_POST['itemName'])) {
+                            $validationResult = validateFields($_POST, $fieldsToValidate);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showErrorMessage("El idioma no se ha editado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                            }
+                            else {
+                                $languageEdited =  updateLanguage($_POST['itemId'], $_POST['itemName'], $_POST['itemISOCode']); 
+                            }               
+                        }                        
                     }
                 } 
                 //Crear plataforma
@@ -44,9 +58,20 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['languageName'])){
-                            $languageCreated = storeLanguage($_POST['languageName'], $_POST['languageISOCode']); 
-                        }
+                        if (isset($_POST['itemName'])) {
+                            $validationResult = validateFields($_POST, $fieldsToValidate);
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showErrorMessage("El idioma no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                            }
+                            else {
+                                $languageCreated = storeLanguage($_POST['itemName'], $_POST['itemISOCode']);
+                            }               
+                        }                        
                     }
                 }
                 if(!$sendData) {
@@ -61,23 +86,23 @@
                     <form name="create_language" action="" method="POST">
                     <div class="row">
                         <div class="col-6">
-                            <label for="languageName" class="form-label">Nombre idioma</label>
-                            <input id="languageName" name="languageName" type="text" placeholder="Introduce el nombre del idioma" class="form-control" required value="<?php if(isset($languageObject)) echo $languageObject->getName(); ?>"/>
+                            <label for="itemeName" class="form-label">Nombre idioma</label>
+                            <input id="itemName" name="itemName" type="text" placeholder="Introduce el nombre del idioma" class="form-control" required value="<?php if(isset($languageObject)) echo $languageObject->getName(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
-                                <input type="hidden" name="languageId" value="<?php echo $idLanguage; ?>"/>
+                                <input type="hidden" name="itemId" value="<?php echo $idLanguage; ?>"/>
                             <?php 
                             }
                             ?>
                         </div>
                         <div class="col-6">
-                            <label for="languageISOCode" class="form-label">ISO Code:</label>
-                            <input id="languageISOCode" name="languageISOCode" type="text" placeholder="Introduce el idioma" class="form-control" required value="<?php if(isset($languageObject)) echo $languageObject->getISOCode(); ?>"/>
+                            <label for="itemISOCode" class="form-label">Código ISO:</label>
+                            <input id="itemISOCode" name="itemISOCode" type="text" placeholder="Introduce el idioma" class="form-control" required value="<?php if(isset($languageObject)) echo $languageObject->getISOCode(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
-                                <input type="hidden" name="languageId" value="<?php echo $idLanguage; ?>"/>
+                                <input type="hidden" name="itemId" value="<?php echo $idLanguage; ?>"/>
                             <?php 
                                }
                             ?>
@@ -92,17 +117,13 @@
                } else {
                     if ($action === 'create') {
                         if ($languageCreated) {
-                            MessageHTML::showMessage('Idioma creado correctamente.', true, 'list.php', 'Volver al listado de plataformas');
-                        } else {
-                            MessageHTML::showMessage('El idioma no se ha creado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
-                        }
+                            MessageHTML::showSuccessMessage('Idioma creado correctamente.', 'list.php', 'Volver al listado de plataformas');
+                        } 
                     }
                     if ($action === 'edit') {
                         if ($languageEdited) {
-                            MessageHTML::showMessage('Idioma editado correctamente.', true, 'list.php', 'Volver al listado de plataformas');
-                        } else {
-                            MessageHTML::showMessage('El idioma no se ha editado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
-                        }
+                            MessageHTML::showSuccessMessage('Idioma editado correctamente.', 'list.php', 'Volver al listado de plataformas');
+                        } 
                     }
                 }
                 ?>

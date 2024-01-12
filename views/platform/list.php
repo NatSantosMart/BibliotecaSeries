@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/LanguageController.php');
+    require_once('../../controllers/PlatformController.php');
     require_once('../../assets/scripts/showMessage.php');
 ?>
 
@@ -28,8 +28,8 @@
         <div class="row">
             <div class="col">
                 <?php 
-                    $languageList = listLanguages();
-                    if(count($languageList) > 0) {
+                    $platformList = listPlatforms();
+                    if(count($platformList) > 0) {
                 ?>
                 <table class="table">
                     <thead>
@@ -39,25 +39,25 @@
                     </thead>
                     <tbody>
                         <?php 
-                            foreach($languageList as $language){
+                            foreach($platformList as $platform){
                         ?>   
                         <tr>
                             <td>
-                                <?php echo $language->getId(); ?>
+                                <?php echo $platform->getId(); ?>
                             </td>
                             <td>
-                                <?php echo $language->getName(); ?>
+                                <?php echo $platform->getName(); ?>
                             </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-success mr-2" href="createEdit.php?action=edit&id=<?php echo $language->getId();?>">Editar</a>
+                                    <a class="btn btn-success mr-2" href="createEdit.php?action=edit&id=<?php echo $platform->getId();?>">Editar</a>
 
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal_<?php echo $language->getId(); ?>">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal_<?php echo $platform->getId(); ?>">
                                         Borrar
                                     </button>
                                     
                                  <?php 
-                                     MessageHTML::showDeleteConfirmationModal($language->getId(), 'Eliminar plataforma', '¿Estás seguro de eliminar la plataforma? ');
+                                     MessageHTML::showDeleteConfirmationModal($platform->getId(), 'Eliminar plataforma', '¿Estás seguro de eliminar la plataforma? ');
                                  ?>                         
                             </td>
                         </tr>
@@ -78,8 +78,8 @@
     </div>
 
     <script>
-        function deleteItem(languageId) {
-            window.location.href = 'delete.php?languageId=' + languageId;
+        function deleteItem(platformId) {
+            window.location.href = 'delete.php?platformId=' + platformId;
         }
     </script>
 </body>

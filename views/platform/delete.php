@@ -22,9 +22,9 @@
                 $platformDeleted = deletePlatform($idPlatform);
 
                 if ($platformDeleted) {
-                    MessageHTML::showMessage('Plataforma eliminada correctamente.', true, 'list.php', 'Volver al listado de plataformas');
+                    MessageHTML::showSuccessMessage('Plataforma eliminada correctamente.', 'list.php', 'Volver al listado de plataformas');
                 } else {
-                    MessageHTML::showMessage('La plataforma no se ha eliminado correctamente.', false, 'list.php', 'Volver a intentarlo');
+                    MessageHTML::showErrorMessage('La plataforma no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
                 }
 
             ?>

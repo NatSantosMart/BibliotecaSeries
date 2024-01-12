@@ -1,34 +1,59 @@
 <?php
 
-function validateDirectorFields($postData)
+function validateFields($postData, $fieldsToValidate)
 {
     $errors = array();
     $errorsEmptyFields = array();
 
-    // Validate name
-    if (empty($postData['directorName'])) {
-        $errorsEmptyFields[] = 'nombre';
-    } elseif (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,100}$/', $postData['directorName'])) {
-        $errors[] = 'nombre';
-    }
+    foreach ($fieldsToValidate as $fieldName) {
+        // Verificar si el campo está presente en $postData
+        if (!array_key_exists($fieldName, $postData)) {
+            continue; // Saltar la validación si el campo no está presente
+        }
 
-    // Validate surnames
-    if (empty($postData['directorSurnames'])) {
-        $errorsEmptyFields[] = 'apellidos';
-    } elseif (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,200}$/', $postData['directorSurnames'])) {
-        $errors[] = 'apellidos';
-    }
+        // Validar campos no vacíos
+        if (empty($postData[$fieldName])) {
+            $errorsEmptyFields[] = $fieldName;
+        }
 
-    // Validate birthdate
-    if (empty($postData['directorBirthdate'])) {
-        $errorsEmptyFields[] = 'fecha de nacimiento';
-    }
+        if (!empty($postData[$fieldName])) {
+            switch ($fieldName) {
+                case 'itemName':
+                    if (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,100}$/', $postData[$fieldName])) {
+                        $errors[] = 'nombre';
+                    }
+                    break;
 
-    // Validate nationality
-    if (empty($postData['directorNationality'])) {
-        $errorsEmptyFields[] = 'nacionalidad';
-    } elseif (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,30}$/', $postData['directorNationality'])) {
-        $errors[] = 'nacionalidad';
+                case 'itemSurnames':
+                    if (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,200}$/', $postData[$fieldName])) {
+                        $errors[] = 'apellidos';
+                    }
+                    break;
+
+                case 'itemBirthdate':
+                    if (empty($postData[$fieldName])) {
+                        $errorsEmptyFields[] = 'fecha de nacimiento';
+                    }
+                    break;
+
+                case 'itemNationality':
+                    if (empty($postData[$fieldName])) {
+                        $errorsEmptyFields[] = 'nacionalidad';
+                    } elseif (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,30}$/', $postData[$fieldName])) {
+                        $errors[] = 'nacionalidad';
+                    }
+                    break;
+                
+                case 'itemISOCode':
+                    if (!preg_match('/^[a-z]{2}$/', $postData[$fieldName])) {
+                        $errors[] = 'código ISO';
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 
     $validationResult = array(
@@ -43,14 +68,13 @@ function validateDirectorFields($postData)
         $incorrectFields = '';
 
         if (!empty($errorsEmptyFields)) {
-            $errorMessage = $errorMessage . ' Todos los campos son obligatorios.';
+            $errorMessage .= ' Todos los campos obligatorios deben ser completados.';
         }
         if (!empty($errors)) {
-            // If there are validation errors, display them
             if (count($errors) > 1) {
-                $errorMessage = $errorMessage . ' Los siguientes campos tienen un formato incorrecto: ';
+                $errorMessage .= ' Los siguientes campos tienen un formato incorrecto: ';
             } else {
-                $errorMessage = $errorMessage . ' El siguiente campo tiene un formato incorrecto: ';
+                $errorMessage .= ' El siguiente campo tiene un formato incorrecto: ';
             }
             $incorrectFields = implode(', ', $errors);
         }
@@ -58,6 +82,11 @@ function validateDirectorFields($postData)
         $validationResult['errorMessage'] = $errorMessage;
         $validationResult['incorrectFields'] = $incorrectFields;
     }
-    return $validationResult; 
+
+    return $validationResult;
 }
+
 ?>
+
+
+

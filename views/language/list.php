@@ -35,7 +35,7 @@
                     <thead>
                         <th>Id</th>
                         <th>Nombre</th>
-                        <th>ISO Code</th>
+                        <th>Código ISO</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>

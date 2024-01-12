@@ -1,6 +1,7 @@
 <?php 
     require_once('../../controllers/PlatformController.php'); 
     require_once('../../assets/scripts/showMessage.php');
+    require_once('../../assets/scripts/validations.php'); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,7 @@
             <?php
                  $sendData = false; 
                  $action = isset($_GET['action']) ? $_GET['action'] : 'create';
+                 $fieldsToValidate = ['itemName'];
 
                 //Editar plataforma
                 if ($action === 'edit') {
@@ -31,10 +33,23 @@
                     if(isset($_POST['buttonCreateEdit'])){ 
                         $sendData = true; 
                     }
+
                     if($sendData){
-                        if(isset($_POST['platformName'])){
-                            $platformEdited =  updatePlatform($_POST['platformId'], $_POST['platformName']); 
-                        }
+                        if (isset($_POST['itemName'])) {
+                            $validationResult = validateFields($_POST, $fieldsToValidate);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showErrorMessage("La plataforma no se ha editado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
+                            }
+                            else {
+                                $platformEdited =  updatePlatform($_POST['platformId'], $_POST['itemName']); 
+                            }               
+                        }                        
                     }
                 } 
                 //Crear plataforma
@@ -44,9 +59,21 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['platformName'])){
-                            $platformCreated = storePlatform($_POST['platformName']); 
-                        }
+                        if (isset($_POST['itemName'])) {
+                            $validationResult = validateFields($_POST, $fieldsToValidate);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showErrorMessage("La plataforma no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
+                            }
+                            else {
+                                $platformCreated = storePlatform($_POST['itemName']); 
+                            }               
+                        } 
                     }
                 }
                 if(!$sendData) {
@@ -55,13 +82,23 @@
     
             <div class="row">
                 <div class="col-12">
-                    <h1>Crear plataforma</h1>
+                    <?php 
+                            if ($action === 'create'){
+                        ?>
+                            <h1>Crear plataforma</h1>
+                        <?php 
+                            } else {
+                        ?>                    
+                        <h1>Editar plataforma</h1> 
+                        <?php 
+                            }
+                    ?>
                 </div>
                 <div class="col-12">
                     <form name="create_platform" action="" method="POST">
                         <div class="mb-3">
-                            <label for="platformName" class="form-label">Nombre plataforma</label>
-                            <input id="platformName" name="platformName" type="text" placeholder="Introduce el nombre de la plataforma" class="form-control" required value="<?php if(isset($platformObject)) echo $platformObject->getName(); ?>"/>
+                            <label for="itemName" class="form-label">Nombre plataforma</label>
+                            <input id="itemName" name="itemName" type="text" placeholder="Introduce el nombre de la plataforma" class="form-control" required value="<?php if(isset($platformObject)) echo $platformObject->getName(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
@@ -79,17 +116,13 @@
                } else {
                     if ($action === 'create') {
                         if ($platformCreated) {
-                            MessageHTML::showMessage('Plataforma creada correctamente.', true, 'list.php', 'Volver al listado de plataformas');
-                        } else {
-                            MessageHTML::showMessage('La plataforma no se ha creado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
-                        }
+                            MessageHTML::showSuccessMessage('Plataforma creada correctamente.','list.php', 'Volver al listado de plataformas');
+                        } 
                     }
                     if ($action === 'edit') {
                         if ($platformEdited) {
-                            MessageHTML::showMessage('Plataforma editada correctamente.', true, 'list.php', 'Volver al listado de plataformas');
-                        } else {
-                            MessageHTML::showMessage('La plataforma no se ha editado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
-                        }
+                            MessageHTML::showSuccessMessage('Plataforma editada correctamente.', 'list.php', 'Volver al listado de plataformas');
+                        } 
                     }
                 }
                 ?>

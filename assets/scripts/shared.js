@@ -12,8 +12,4 @@ document.write('<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"><
 // Popper.js
 document.write('<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>');
 
-// Head HTML
-document.write('<script src="views/layouts/head.html"></script>');
-document.write('<title>Biblioteca</title>');
-
 

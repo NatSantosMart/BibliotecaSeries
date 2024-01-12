@@ -1,9 +1,8 @@
 <?php
 class MessageHTML {
-    public static function showMessage($message, $isSuccess, $redirectTo, $linkText) {
-        $class = $isSuccess ? 'alert-success' : 'alert-danger';
+    public static function showSuccessMessage($message, $redirectTo, $linkText) {
         echo '<div class="container d-flex align-items-center justify-content-center vh-100">';
-        echo '<div class="alert ' . $class . '" style="width: 600px; height: 150px; overflow-y: auto; display: flex; flex-direction: column; align-items: center;">';
+        echo '<div class="alert alert-success style="width: 600px; height: 150px; overflow-y: auto; display: flex; flex-direction: column; align-items: center;">';
         echo '<div style="margin-top: 10px;">';
         echo '<h5 style="display: inline-block; margin-right: 10px;">¡Enhorabuena!</h5>';
         echo '<p style="display: inline-block; margin-top: 10px; margin-bottom: 10px;">' . $message . '</p>';
@@ -13,10 +12,9 @@ class MessageHTML {
         echo '</div>';
     }
     
-    public static function showMessageError($message, $incorrectFields, $isSuccess, $redirectTo, $linkText) {
-        $class = $isSuccess ? 'alert-success' : 'alert-danger';
+    public static function showErrorMessage($message, $incorrectFields, $redirectTo, $linkText) {
         echo '<div class="container d-flex align-items-center justify-content-center vh-100">';
-        echo '<div class="alert ' . $class . '" style="width: 600px; height: 200px;">';
+        echo '<div class="alert alert-danger style="width: 150px; height: 300px;">';
         echo '<h5 style="margin-top: 10px;">' . 'Error' . '</h5>';
         echo '<p style="margin-top: 10px;">' . $message . '<strong>' . $incorrectFields . '</strong></p>';
         echo '<a href="' . $redirectTo . '" style="margin-top: 10px;">' . $linkText . '</a>';
