@@ -102,7 +102,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="itemName" class="form-label">Nombre: </label>
-                            <input id="itemName" name="itemName" type="text" placeholder="Introduce el nombre" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getName(); ?>"/>
+                            <input id="itemName" name="itemName" type="text" placeholder="Introduce el nombre" class="form-control" required value="<?php if(isset($directorObject)) echo $directorObject->getName(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
@@ -113,17 +113,17 @@
                         </div>
                         <div class="col-6">
                             <label for="itemSurnames" class="form-label">Apellidos:</label>
-                            <input id="itemSurnames" name="itemSurnames" type="text" placeholder="Introduce los apellidos" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getSurnames(); ?>"/>
+                            <input id="itemSurnames" name="itemSurnames" type="text" placeholder="Introduce los apellidos" class="form-control" required value="<?php if(isset($directorObject)) echo $directorObject->getSurnames(); ?>"/>
                         </div>                     
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <label for="itemBirthdate" class="form-label">Fecha nacimiento: </label>
-                            <input id="itemBirthdate" name="itemBirthdate" type="date" placeholder="Introduce la fecha de nacimiento" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getBirthdate(); ?>"/>
+                            <input id="itemBirthdate" name="itemBirthdate" type="date" placeholder="Introduce la fecha de nacimiento" required class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getBirthdate(); ?>"/>
                         </div>
                         <div class="col-6">
                             <label for="itemNationality" class="form-label">Nacionalidad:</label>
-                            <input id="itemNationality" name="itemNationality" type="text" placeholder="Introduce la nacionalidad" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getNationality(); ?>"/>
+                            <input id="itemNationality" name="itemNationality" type="text" placeholder="Introduce la nacionalidad" required class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getNationality(); ?>"/>
                         </div>                     
                     </div>
                     <div class="row">
