@@ -92,14 +92,14 @@
                } else {
                     if ($action === 'create') {
                         if ($languageCreated) {
-                            MessageHTML::showMessage('Idioma creada correctamente.', true, 'list.php', 'Volver al listado de plataformas');
+                            MessageHTML::showMessage('Idioma creado correctamente.', true, 'list.php', 'Volver al listado de plataformas');
                         } else {
                             MessageHTML::showMessage('El idioma no se ha creado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
                         }
                     }
                     if ($action === 'edit') {
                         if ($languageEdited) {
-                            MessageHTML::showMessage('Idioma editada correctamente.', true, 'list.php', 'Volver al listado de plataformas');
+                            MessageHTML::showMessage('Idioma editado correctamente.', true, 'list.php', 'Volver al listado de plataformas');
                         } else {
                             MessageHTML::showMessage('El idioma no se ha editado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
                         }

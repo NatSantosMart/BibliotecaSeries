@@ -1,11 +1,14 @@
 <?php 
     require_once('../../controllers/DirectorController.php'); 
     require_once('../../assets/scripts/showMessage.php');
+    require_once('../../assets/scripts/validations.php'); 
 ?>
 <!DOCTYPE html>
 <html>
     <head>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="../../assets/scripts/shared.js"></script> 
+        <script src="../../assets/scripts/validations.js"></script> 
     </head>
     <style>
         .row {
@@ -16,6 +19,7 @@
         }
         
     </style>
+    
     <body>
         <div class="container">
             <?php
@@ -32,9 +36,21 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['directorName'])){
-                            $directorEdited =  updateDirector($_POST['directorId'], $_POST['directorName'], $_POST['directorSurnames'], $_POST['directorBirthdate'], $_POST['directorNationality']); 
-                        }
+                        if (isset($_POST['directorName'])) {
+                            $validationResult = validateDirectorFields($_POST);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showMessageError("El director no se ha creado correctamente." . $errorMessage, $incorrectFields, false, 'list.php', 'Volver al listado de directors');
+                            }
+                            else {
+                                $directorEdited = updateDirector($idDirector, $_POST['directorName'], $_POST['directorSurnames'], $_POST['directorBirthdate'], $_POST['directorNationality']);
+                            }               
+                        }                        
                     }
                 } 
                 //Crear director
@@ -44,9 +60,21 @@
                         $sendData = true; 
                     }
                     if($sendData){
-                        if(isset($_POST['directorName'])){
-                            $directorCreated = storeDirector($_POST['directorName'], $_POST['directorSurnames'], $_POST['directorBirthdate'], $_POST['directorNationality']); 
-                        }
+                        if (isset($_POST['directorName'])) {
+                            $validationResult = validateDirectorFields($_POST);
+
+                            $errors = $validationResult['errors'];
+                            $errorsEmptyFields = $validationResult['errorsEmptyFields'];
+                            $errorMessage = $validationResult['errorMessage'];
+                            $incorrectFields = $validationResult['incorrectFields'];
+                        
+                            if (!empty($errorsEmptyFields) || !empty($errors)) {
+                                MessageHTML::showMessageError("El director no se ha creado correctamente." . $errorMessage, $incorrectFields, false, 'list.php', 'Volver al listado de directors');
+                            }
+                            else {
+                                $directorCreated = storeDirector($_POST['directorName'], $_POST['directorSurnames'], $_POST['directorBirthdate'], $_POST['directorNationality']); 
+                            }               
+                        }                        
                     }
                 }
                 if(!$sendData) {
@@ -55,7 +83,17 @@
     
             <div class="row">
                 <div class="col-12">
-                    <h1>Crear director</h1>
+                    <?php 
+                        if ($action === 'create'){
+                    ?>
+                        <h1>Crear director</h1>
+                    <?php 
+                        } else {
+                    ?>                    
+                    <h1>Editar director</h1> 
+                    <?php 
+                        }
+                    ?>
                 </div>
                 <div class="col-12">
                     <form name="create_director" action="" method="POST">
@@ -63,7 +101,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="directorName" class="form-label">Nombre: </label>
-                            <input id="directorName" name="directorName" type="text" placeholder="Introduce el nombre" class="form-control" required value="<?php if(isset($directorObject)) echo $directorObject->getName(); ?>"/>
+                            <input id="directorName" name="directorName" type="text" placeholder="Introduce el nombre" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getName(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
@@ -74,7 +112,7 @@
                         </div>
                         <div class="col-6">
                             <label for="directorSurnames" class="form-label">Apellidos:</label>
-                            <input id="directorSurnames" name="directorSurnames" type="text" placeholder="Introduce los apellidos" class="form-control" required value="<?php if(isset($directorObject)) echo $directorObject->getSurnames(); ?>"/>
+                            <input id="directorSurnames" name="directorSurnames" type="text" placeholder="Introduce los apellidos" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getSurnames(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
@@ -87,7 +125,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="directorBirthdate" class="form-label">Fecha nacimiento: </label>
-                            <input id="directorBirthdate" name="directorBirthdate" type="date" placeholder="Introduce la fecha de nacimiento" class="form-control" required value="<?php if(isset($directorObject)) echo $directorObject->getBirthdate(); ?>"/>
+                            <input id="directorBirthdate" name="directorBirthdate" type="date" placeholder="Introduce la fecha de nacimiento" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getBirthdate(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
@@ -98,7 +136,7 @@
                         </div>
                         <div class="col-6">
                             <label for="directorNationality" class="form-label">Nacionalidad:</label>
-                            <input id="directorNationality" name="directorNationality" type="text" placeholder="Introduce la nacionalidad" class="form-control" required value="<?php if(isset($directorObject)) echo $directorObject->getNationality(); ?>"/>
+                            <input id="directorNationality" name="directorNationality" type="text" placeholder="Introduce la nacionalidad" class="form-control" value="<?php if(isset($directorObject)) echo $directorObject->getNationality(); ?>"/>
                             <?php 
                                 if ($action === 'edit') {
                             ?>                           
@@ -119,14 +157,14 @@
                } else {
                     if ($action === 'create') {
                         if ($directorCreated) {
-                            MessageHTML::showMessage('Director creada correctamente.', true, 'list.php', 'Volver al listado de directors');
+                            MessageHTML::showMessage('Director creado correctamente.', true, 'list.php', 'Volver al listado de directors');
                         } else {
                             MessageHTML::showMessage('La director no se ha creado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
                         }
                     }
                     if ($action === 'edit') {
                         if ($directorEdited) {
-                            MessageHTML::showMessage('Director editada correctamente.', true, 'list.php', 'Volver al listado de directors');
+                            MessageHTML::showMessage('Director editado correctamente.', true, 'list.php', 'Volver al listado de directors');
                         } else {
                             MessageHTML::showMessage('La director no se ha editado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
                         }

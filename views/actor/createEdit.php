@@ -119,16 +119,12 @@
                } else {
                     if ($action === 'create') {
                         if ($actorCreated) {
-                            MessageHTML::showMessage('Actor creada correctamente.', true, 'list.php', 'Volver al listado de actors');
-                        } else {
-                            MessageHTML::showMessage('La actor no se ha creado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
+                            MessageHTML::showMessage('Actor creado correctamente.', 'list.php', 'Volver al listado de actors');
                         }
                     }
                     if ($action === 'edit') {
                         if ($actorEdited) {
-                            MessageHTML::showMessage('Actor editada correctamente.', true, 'list.php', 'Volver al listado de actors');
-                        } else {
-                            MessageHTML::showMessage('La actor no se ha editado correctamente.', false, 'createEdit.php', 'Volver a intentarlo');
+                            MessageHTML::showMessage('Actor editado correctamente.', 'list.php', 'Volver al listado de actors');
                         }
                     }
                 }

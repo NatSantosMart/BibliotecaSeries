@@ -22,7 +22,7 @@
                 $actorDeleted = deleteActor($idActor);
 
                 if ($actorDeleted) {
-                    MessageHTML::showMessage('Actor eliminada correctamente.', true, 'list.php', 'Volver al listado de actors');
+                    MessageHTML::showMessage('Actor eliminado correctamente.', true, 'list.php', 'Volver al listado de actors');
                 } else {
                     MessageHTML::showMessage('La actor no se ha eliminado correctamente.', false, 'list.php', 'Volver a intentarlo');
                 }
