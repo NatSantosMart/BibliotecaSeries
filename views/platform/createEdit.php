@@ -44,7 +44,8 @@
                             $incorrectFields = $validationResult['incorrectFields'];
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
-                                MessageHTML::showErrorMessage("La plataforma no se ha editado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
+                                MessageHTML::showErrorMessage("La plataforma no se ha editado correctamente." . 
+                                $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
                             }
                             else {
                                 $platformEdited =  updatePlatform($_POST['platformId'], $_POST['itemName']); 
@@ -68,7 +69,8 @@
                             $incorrectFields = $validationResult['incorrectFields'];
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
-                                MessageHTML::showErrorMessage("La plataforma no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
+                                MessageHTML::showErrorMessage("La plataforma no se ha creado correctamente." . 
+                                $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
                             }
                             else {
                                 $platformCreated = storePlatform($_POST['itemName']); 
@@ -83,7 +85,7 @@
             <div class="row">
                 <div class="col-12">
                     <?php 
-                            if ($action === 'create'){
+                         if ($action === 'create'){
                         ?>
                             <h1>Crear plataforma</h1>
                         <?php 

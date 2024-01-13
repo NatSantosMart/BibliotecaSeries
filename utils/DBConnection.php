@@ -7,7 +7,6 @@ class DBConnection {
     private $db_password = 'root';
     private $db_db = 'Biblioteca_series';
 
-    // Constructor privado para evitar la creación de instancias externas
     private function __construct() {
         $this->conn = @new mysqli(
             $this->db_host,
@@ -16,7 +15,6 @@ class DBConnection {
             $this->db_db
         );
 
-        // Manejo de errores de conexión
         if ($this->conn->connect_error) {
             die('Error de conexión: ' . $this->conn->connect_error);
         }
