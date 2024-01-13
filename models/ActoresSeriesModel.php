@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '../utils/DBConnection.php');
+require_once(__DIR__ . '/../utils/DBConnection.php');
 
 class ActorSeriesModel {
     public static function getActorsForSeries($seriesId) {

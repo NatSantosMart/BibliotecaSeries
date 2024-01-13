@@ -1,8 +1,8 @@
 <?php
 require_once('../../models/Serie.php');
-require_once('../../models/ActorSeriesModel.php');
-require_once('../../models/LanguageSeriesAudioModel.php');
-require_once('../../models/LanguageSeriesSubtitlesModel.php');
+require_once('../../models/ActoresSeriesModel.php');
+require_once('../../models/LanguageSeriesAudio.php');
+require_once('../../models/LanguageSeriesSubtitles.php');
 
 function listSeries() {
     $model = new Serie(null, null, null, null); 
