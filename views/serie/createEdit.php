@@ -1,5 +1,5 @@
 <?php
-require_once('../../controllers/SeriesController.php');
+require_once('../../controllers/SerieController.php');
 require_once('../../assets/scripts/showMessage.php');
 require_once('../../assets/scripts/validations.php');
 ?>
