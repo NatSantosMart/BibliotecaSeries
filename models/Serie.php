@@ -12,11 +12,7 @@
             $this->id = $idSerie; 
             $this->title = $titleSerie; 
             $this->platformId = $platformerieId; 
-            $this->directorId = $directorSerieId; 
-            $this->actors = [];
-            $this->languagesAudio = [];
-            $this->languagesSubtitles = [];
-             
+            $this->directorId = $directorSerieId;             
         }
         public function setId($id){
             $this->id = $id; 
@@ -145,13 +141,13 @@
             foreach($query as $item){
                 $itemObject = new Serie($item["id"], $item["title"], $item["platform"], $item["director"]); 
 
-                $actors = ActorSeriesModel::getActorsForSeries($this->id);
-                $languagesAudio = LanguageSeriesAudioModel::getLanguagesAudioForSeries($this->id);
-                $languagesSubtitles = LanguageSeriesSubtitlesModel::getLanguagesSubtitlesForSeries($this->id);
+                // $actors = ActorSeriesModel::getActorsForSeries($this->id);
+                // $languagesAudio = LanguageSeriesAudioModel::getLanguagesAudioForSeries($this->id);
+                // $languagesSubtitles = LanguageSeriesSubtitlesModel::getLanguagesSubtitlesForSeries($this->id);
 
-                $itemObject->setActors($actors);
-                $itemObject->setLanguagesAudio($languagesAudio);
-                $itemObject->setLanguagesSubtitles($languagesSubtitles);
+                // $itemObject->setActors($actors);
+                // $itemObject->setLanguagesAudio($languagesAudio);
+                // $itemObject->setLanguagesSubtitles($languagesSubtitles);
                 break; 
             }
             //$mysqli->close();

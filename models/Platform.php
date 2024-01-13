@@ -31,7 +31,7 @@
                 $itemObject = new Platform($item["id"], $item["name"]); 
                 array_push($listData, $itemObject); 
             }
-            $mysqli->close(); //Cierre de conexión  
+            
             return $listData; 
         }
 

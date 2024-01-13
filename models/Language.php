@@ -39,7 +39,6 @@
                 $itemObject = new Language($item["id"], $item["name"], $item["ISOCode"]); 
                 array_push($listData, $itemObject); 
             }
-            $mysqli->close(); //Cierre de conexión  
             return $listData; 
         }
 

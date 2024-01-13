@@ -73,7 +73,7 @@
                                 MessageHTML::showErrorMessage("El director no se ha creado correctamente." . $errorMessage, $incorrectFields, 'createEdit.php', 'Volver a intentarlo');
                             }
                             else {
-                                $directorCreated = storeDirector($_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemrNationality']); 
+                                $directorCreated = storeDirector($_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']); 
                             }               
                         }                        
                     }

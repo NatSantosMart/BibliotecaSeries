@@ -1,4 +1,8 @@
 <?php
+require_once('../../controllers/PlatformController.php');
+require_once('../../controllers/LanguageController.php');
+require_once('../../controllers/DirectorController.php');
+require_once('../../controllers/ActorController.php');
 require_once('../../controllers/SerieController.php');
 require_once('../../assets/scripts/showMessage.php');
 require_once('../../assets/scripts/validations.php');
@@ -8,7 +12,11 @@ require_once('../../assets/scripts/validations.php');
 <html>
 
 <head>
+
     <script src="../../assets/scripts/shared.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+
 </head>
 
 <style>
@@ -19,6 +27,7 @@ require_once('../../assets/scripts/validations.php');
     label {
         margin-top: 10px;
     }
+
 </style>
 
 <body>
@@ -104,7 +113,6 @@ require_once('../../assets/scripts/validations.php');
                             <div class="col-6">
                                 <label for="itemPlatformId" class="form-label">Plataforma:</label>
                                 <select id="itemPlatformId" name="itemPlatformId" class="form-control" required>
-                                    <!-- Revisar que se cogen bien los datos de la bd-->
                                     <?php
                                     $platformsList = listPlatforms();
                                     foreach ($platformsList as $platform) {
@@ -113,20 +121,12 @@ require_once('../../assets/scripts/validations.php');
                                     }
                                     ?>
                                 </select>
-                                <?php
-                                if ($action === 'edit') {
-                                ?>
-                                    <input type="hidden" name="itemId" value="<?php echo $idSeries; ?>" />
-                                <?php
-                                }
-                                ?>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label for="itemDirectorId" class="form-label">Director: </label>
                                 <select id="itemDirectorId" name="itemDirectorId" class="form-control" required>
-                                    <!-- Revisar que se cogen bien los datos de la bd-->
                                     <?php
                                     $directorsList = listDirectors();
                                     foreach ($directorsList as $director) {
@@ -135,17 +135,68 @@ require_once('../../assets/scripts/validations.php');
                                     }
                                     ?>
                                 </select>
-                                <?php
-                                if ($action === 'edit') {
-                                ?>
-                                    <input type="hidden" name="itemId" value="<?php echo $idSeries; ?>" />
-                                <?php
-                                }
-                                ?>
+                            </div>
+                            <div class="col-6">
+                                <label for="itemActorId" class="form-label">Actor: </label>
+                                <select id="itemActorId" name="itemActorId[]" class="chosen-select form-control" multiple required>
+                                    <?php
+                                    $actorsList = listActors();
+                                    foreach ($actorsList as $actor) {
+                                        $selected = (isset($seriesObject) && in_array($actor->getId(), $seriesObject->getActorId())) ? 'selected' : '';
+                                        echo "<option value='{$actor->getId()}' {$selected}>{$actor->getName()} {$actor->getSurnames()}</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <script>
+                                    // Inicializar Chosen en tu select
+                                    $(document).ready(function(){
+                                        $(".chosen-select").chosen();
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="submit" style="margin-left: 15px;" value="<?php echo ($action === 'create') ? 'Crear' : 'Editar' ?>" class="btn btn-primary" name="buttonCreateEdit" />
+                            <div class="col-6">
+                                    <label for="itemLanguageAudioId" class="form-label">Idiomas audio: </label>
+                                    <select id="itemLanguageAudioId" name="itemLanguageAudioId[]" class="chosen-select form-control" multiple required>
+                                        <?php
+                                        $languagesList = listLanguages();
+                                        foreach ($languagesList as $language) {
+                                            $selected = (isset($seriesObject) && in_array($language->getId(), $seriesObject->getLanguageId())) ? 'selected' : '';
+                                            echo "<option value='{$language->getId()}' {$selected}>{$language->getName()} </option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <script>
+                                        // Inicializar Chosen en tu select
+                                        $(document).ready(function(){
+                                            $(".chosen-select").chosen();
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-6">
+                                    <label for="itemLanguageSubtitlesId" class="form-label">Idiomas subtítulos: </label>
+                                    <select id="itemLanguageSubtitlesId" name="itemLanguageSubtitlesId[]" class="chosen-select form-control" multiple required>
+                                        <?php
+                                        $languagesList = listLanguages();
+                                        foreach ($languagesList as $language) {
+                                            $selected = (isset($seriesObject) && in_array($language->getId(), $seriesObject->getLanguageId())) ? 'selected' : '';
+                                            echo "<option value='{$language->getId()}' {$selected}>{$language->getName()} </option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <script>
+                                        // Inicializar Chosen en tu select
+                                        $(document).ready(function(){
+                                            $(".chosen-select").chosen();
+                                        });
+                                    </script>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="submit" style="margin-left: 15px;" value="<?php echo ($action === 'create') ? 'Crear' : 'Editar' ?>" class="btn btn-primary" name="buttonCreateEdit" />
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,6 @@
 <?php
 require_once('../../models/Serie.php');
-require_once('../../models/ActoresSeriesModel.php');
+require_once('../../models/ActorsSeries.php');
 require_once('../../models/LanguageSeriesAudio.php');
 require_once('../../models/LanguageSeriesSubtitles.php');
 

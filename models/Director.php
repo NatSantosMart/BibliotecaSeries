@@ -55,7 +55,7 @@
                 $itemObject = new Director($item["id"], $item["name"], $item["surnames"],$item["birthdate"],  $item["nationality"]); 
                 array_push($listData, $itemObject); 
             }
-            $mysqli->close(); 
+       
             return $listData; 
         }
 
