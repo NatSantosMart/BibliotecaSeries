@@ -13,7 +13,10 @@
             $this->title = $titleSerie; 
             $this->platformId = $platformerieId; 
             $this->directorId = $directorSerieId; 
-            
+            $this->actors = [];
+            $this->languagesAudio = [];
+            $this->languagesSubtitles = [];
+             
         }
         public function setId($id){
             $this->id = $id; 
@@ -39,6 +42,32 @@
         public function getdirector(){
             return $this->directorId; 
         }
+
+        public function getActors(){
+            return $this->actors;
+        }
+
+        public function getLanguagesAudio(){
+            return $this->languagesAudio;
+        }
+
+        public function getLanguagesSubtitles(){
+            return $this->languagesSubtitles;
+        }
+
+        public function setActors($actors) {
+            $this->actors = $actors;
+        }
+
+        public function setLanguagesAudio($languagesAudio) {
+            $this->languagesAudio = $languagesAudio;
+        }
+
+        public function setLanguagesSubtitles($languagesSubtitles) {
+            $this->languagesSubtitles = $languagesSubtitles;
+        }
+
+        
        
         function getAll() {
             $mysqli = DBConnection::getInstance()->getConnection();
@@ -115,6 +144,14 @@
 
             foreach($query as $item){
                 $itemObject = new Serie($item["id"], $item["title"], $item["platform"], $item["director"]); 
+
+                $actors = ActorSeriesModel::getActorsForSeries($this->id);
+                $languagesAudio = LanguageSeriesAudioModel::getLanguagesAudioForSeries($this->id);
+                $languagesSubtitles = LanguageSeriesSubtitlesModel::getLanguagesSubtitlesForSeries($this->id);
+
+                $itemObject->setActors($actors);
+                $itemObject->setLanguagesAudio($languagesAudio);
+                $itemObject->setLanguagesSubtitles($languagesSubtitles);
                 break; 
             }
             //$mysqli->close();
