@@ -70,7 +70,7 @@
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
                                 MessageHTML::showErrorMessage("La plataforma no se ha creado correctamente." . 
-                                $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de plataformas');
+                                $errorMessage, $incorrectFields, 'createEdit.php', 'Volver a intentarlo');
                             }
                             else {
                                 $platformCreated = storePlatform($_POST['itemName']); 

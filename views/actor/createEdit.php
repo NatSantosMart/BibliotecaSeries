@@ -43,7 +43,7 @@
                             $incorrectFields = $validationResult['incorrectFields'];
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
-                                MessageHTML::showErrorMessage("El actor no se ha editado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                                MessageHTML::showErrorMessage("El actor no se ha editado correctamente." . $errorMessage, $incorrectFields, "createEdit.php?action=edit&id=$idActor", 'Volver a intentarlo');
                             }
                             else {
                                 $actorEdited =  updateActor($_POST['itemId'], $_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']); 
@@ -67,7 +67,7 @@
                             $incorrectFields = $validationResult['incorrectFields'];
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
-                                MessageHTML::showErrorMessage("El actor no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                                MessageHTML::showErrorMessage("El actor no se ha creado correctamente." . $errorMessage, $incorrectFields, 'createEdit.php', 'Volver a intentarlo');
                             }
                             else {
                                 $actorCreated = storeActor($_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemNationality']); 
@@ -82,7 +82,17 @@
     
             <div class="row">
                 <div class="col-12">
-                    <h1>Crear actor</h1>
+                <?php 
+                        if ($action === 'create'){
+                    ?>
+                        <h1>Crear director</h1>
+                    <?php 
+                        } else {
+                    ?>                    
+                    <h1>Editar director</h1> 
+                    <?php 
+                        }
+                    ?>
                 </div>
                 <div class="col-12">
                     <form name="create_actor" action="" method="POST">

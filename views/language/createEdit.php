@@ -66,7 +66,7 @@
                             $incorrectFields = $validationResult['incorrectFields'];
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
-                                MessageHTML::showErrorMessage("El idioma no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                                MessageHTML::showErrorMessage("El idioma no se ha creado correctamente." . $errorMessage, $incorrectFields, 'createEdit.php', 'Volver a intentarlo');
                             }
                             else {
                                 $languageCreated = storeLanguage($_POST['itemName'], $_POST['itemISOCode']);

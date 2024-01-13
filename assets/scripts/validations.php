@@ -31,10 +31,10 @@ function validateFields($postData, $fieldsToValidate)
                     break;
 
                 case 'itemBirthdate':
-                    if (!preg_match('/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/', $postData[$fieldName])) {
+                    if (preg_match('/^(((0[1-9])|([12][0-9])|(3[01]))-((0[0-9])|(1[012]))-((20[012]\d|19\d\d)|(1\d|2[0123])))$/', $postData[$fieldName])) {
                         $errors[] = 'fecha nacimiento';
                     }
-                    break;
+                    break;                   
                     
                 case 'itemNationality':
                     if (!preg_match('/^[A-Za-zÁ-Úá-ú\s]{1,30}$/', $postData[$fieldName])) {

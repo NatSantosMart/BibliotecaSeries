@@ -70,7 +70,7 @@
                             $incorrectFields = $validationResult['incorrectFields'];
                         
                             if (!empty($errorsEmptyFields) || !empty($errors)) {
-                                MessageHTML::showErrorMessage("El director no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de directors');
+                                MessageHTML::showErrorMessage("El director no se ha creado correctamente." . $errorMessage, $incorrectFields, 'createEdit.php', 'Volver a intentarlo');
                             }
                             else {
                                 $directorCreated = storeDirector($_POST['itemName'], $_POST['itemSurnames'], $_POST['itemBirthdate'], $_POST['itemrNationality']); 
