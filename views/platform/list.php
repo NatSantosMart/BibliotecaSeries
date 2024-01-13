@@ -21,9 +21,7 @@
             <h1>Listado de plataformas</h1>
         </div>
         <div class="row">
-            <a class="btn btn-primary" href="createEdit.php?action=create" role="button">
-                <i class="fas fa-plus"></i> Crear plataforma
-            </a>
+            <a class="btn btn-primary" href="createEdit.php?action=create" role="button"><i class="fas fa-plus"></i> Crear plataforma</a>
         </div>
         <div class="row">
             <div class="col">
