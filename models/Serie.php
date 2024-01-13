@@ -114,7 +114,7 @@
             $query = $mysqli->query('SELECT * FROM Serie WHERE id = ' . $this->id);  
 
             foreach($query as $item){
-                $itemObject = new Serie($item["id"], $item["title"], $item["platform"], $item["director"], $item["actor"], $item["languageAudio"], $item["languageSubtitles"]); 
+                $itemObject = new Serie($item["id"], $item["title"], $item["platform"], $item["director"]); 
                 break; 
             }
             //$mysqli->close();
