@@ -104,7 +104,7 @@
 
         function isPlatformAssociatedToSeries(){
             $mysqli = DBConnection::getInstance()->getConnection(); 
-            $query = $mysqli->query('SELECT * FROM Series WHERE idPlatform = ' . $this->id);  
+            $query = $mysqli->query('SELECT * FROM Serie WHERE platform_id = ' . $this->id);  
             $isAssociated = false; 
 
             if ($query->num_rows != 0) {
