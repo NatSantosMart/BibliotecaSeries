@@ -28,13 +28,12 @@
                     MessageHTML::showErrorMessage('No se puede eliminar el actor porque está asociado a una serie.', 'list.php', 'Volver a intentarlo');
                 } else {
                     $actorDeleted = deleteActor($idActor);
-                if ($actorDeleted) {
-                    MessageHTML::showSuccessMessage('Actor eliminado correctamente.', 'list.php', 'Volver al listado de actors');
-                } else {
-                    MessageHTML::showErrorMessage('La actor no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
-                }
             }
-
+            if ($actorDeleted) {
+                MessageHTML::showSuccessMessage('Actor eliminado correctamente.', 'list.php', 'Volver al listado de actors');
+            } else {
+                MessageHTML::showErrorMessage('La actor no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
+            }
             ?>
 
         </div>
