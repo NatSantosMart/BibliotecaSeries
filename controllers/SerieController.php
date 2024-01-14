@@ -51,8 +51,11 @@ function updateSeries($seriesId, $title, $platformId, $directorId) {
 
 function deleteSeries($seriesId) {
     $series = new Serie($seriesId, null, null, null);
+    deleteActorForSeries($seriesId);
+    deleteLanguageAudioForSeries($seriesId); 
+    deleteLanguageSubtitlesForSeries($seriesId);    
     $seriesDeleted = $series->delete();
-
+    
     return $seriesDeleted;
 }
 

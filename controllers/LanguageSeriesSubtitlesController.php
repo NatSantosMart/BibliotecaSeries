@@ -17,14 +17,14 @@
         return $languageEdited = $newLanguageSubtitles->update(); 
     }
 
-    function deleteLanguageSubtitlesForSeries($seriesId, $languageId){
-        $language = new LanguageSeriesSubtitles($seriesId, $languageId);
+    function deleteLanguageSubtitlesForSeries($seriesId){
+        $language = new LanguageSeriesSubtitles($seriesId, null);
         $languageDeleted = $language->delete();
 
         return $languageDeleted; 
     }
-    function getLanguageSubtitlesDataForSeries($languageId){
-        $language = new LanguageSeriesSubtitles(null, $languageId); 
+    function getLanguageSubtitlesDataForSeries($seriesId){
+        $language = new LanguageSeriesSubtitles($seriesId, null); 
         $languageObject = $language->getItem(); 
 
         return $languageObject; 

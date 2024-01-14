@@ -69,12 +69,21 @@ class ActorsSeries {
     function delete() {
         $mysqli = DBConnection::getInstance()->getConnection();
     
-        $deleteQuery = "DELETE FROM ActorSeries WHERE series_id = $this->series_id AND actor_id = $this->actor_id";
+        $deleteQuery = "DELETE FROM ActorSeries WHERE series_id = $this->series_id";
         $result = $mysqli->query($deleteQuery);
     
         return $result;
     }
-    
+    function getItem(){
+        $mysqli = DBConnection::getInstance()->getConnection(); 
+        $query = $mysqli->query('SELECT * FROM ActorSeries WHERE series_id = ' . $this->series_id);  
+
+        foreach($query as $item){
+            $itemObject = new ActorsSeries($item["series_id"], $item["actor_id"]); 
+            break; 
+        }
+        return $itemObject; 
+    }
     
     //isActorAssociatedToSeries
     function isActorAssociatedToSeries(){

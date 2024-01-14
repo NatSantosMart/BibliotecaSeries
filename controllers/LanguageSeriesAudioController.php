@@ -17,14 +17,14 @@
         return $languageEdited = $newLanguageAudio->update(); 
     }
 
-    function deleteLanguageAudioForSeries($seriesId, $languageId){
-        $language = new LanguageSeriesAudio($seriesId, $languageId);
+    function deleteLanguageAudioForSeries($seriesId){
+        $language = new LanguageSeriesAudio($seriesId, null);
         $languageDeleted = $language->delete();
 
         return $languageDeleted; 
     }
-    function getLanguageAudioDataForSeries($languageId){
-        $language = new LanguageSeriesAudio(null, $languageId); 
+    function getLanguageAudioDataForSeries($seriesId){
+        $language = new LanguageSeriesAudio($seriesId, null); 
         $languageObject = $language->getItem(); 
 
         return $languageObject; 

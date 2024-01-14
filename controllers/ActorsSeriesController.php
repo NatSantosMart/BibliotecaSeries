@@ -17,14 +17,14 @@
         return $actorEdited = $newActor->update(); 
     }
 
-    function deleteActorForSeries($seriesId, $actorId){
-        $actor = new ActorsSeries($seriesId, $actorId);
+    function deleteActorForSeries($seriesId){
+        $actor = new ActorsSeries($seriesId, null);
         $actorDeleted = $actor->delete();
 
         return $actorDeleted; 
     }
-    function getActorDataForSeries($actorId){
-        $actor = new ActorsSeries(null, $actorId); 
+    function getActorDataForSeries($seriesId){
+        $actor = new ActorsSeries($seriesId, null); 
         $actorObject = $actor->getItem(); 
 
         return $actorObject; 

@@ -43,8 +43,11 @@ require_once('../../assets/scripts/validations.php');
         // Editar serie
         if ($action === 'edit') {
             $idSeries = $_GET['id'];
-            $seriesObject = getSeriesData($idSeries);
-            $actorsSeriesObject = getSeriesData($idSeries);
+            
+            $seriesObject = getSeriesData($idSeries);       
+
+            $languagesAudioSeriesObject = getLanguageAudioDataForSeries($idSeries);
+            $languagesSubtitlesSeriesObject = getLanguageAudioDataForSeries($idSeries);
 
             $seriesEdited = false;
             if (isset($_POST['buttonCreateEdit'])) {
@@ -141,7 +144,7 @@ require_once('../../assets/scripts/validations.php');
                             </div>
                             <div class="col-6">
                                 <label for="itemActorId" class="form-label">Actor: </label>
-                                <select id="itemActorId" name="itemActorId[]" class="chosen-select form-control" multiple required>
+                                <select id="itemActorId" name="itemActorId[]" class="chosen-select form-control" multiple required value="<?php if (isset($actorsSeriesObject)) echo $actorsSeriesObject->getName() . ' '.  getSurnames(); ?>" />
                                     <?php
                                     $actorsList = listActors();
                                     foreach ($actorsList as $actor) {
@@ -150,6 +153,13 @@ require_once('../../assets/scripts/validations.php');
                                     }
                                     ?>
                                 </select>
+                                <?php
+                                if ($action === 'edit') {
+                                ?>
+                                    <input type="hidden" name="itemId" value="<?php echo $idSeries; ?>" />
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="row">

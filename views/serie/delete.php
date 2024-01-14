@@ -1,5 +1,8 @@
 <?php 
     require_once('../../controllers/SerieController.php'); 
+    require_once('../../controllers/ActorsSeriesController.php');
+    require_once('../../controllers/LanguageSeriesAudioController.php');
+    require_once('../../controllers/LanguageSeriesSubtitlesController.php');
     require_once('../../assets/scripts/showMessage.php');
 ?>
 <!DOCTYPE html>
