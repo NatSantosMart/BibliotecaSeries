@@ -19,7 +19,14 @@
     <body>
         <?php 
                 $idLanguage = $_GET['languageId']; 
-                $languageDeleted = deleteLanguage($idLanguage);
+                $language = new Language($idLanguage, null, null);
+                $isAssociated = $language->isLanguageAssociatedToSeries();
+               
+                if ($isAssociated) {
+                    MessageHTML::showErrorMessage('No se puede eliminar el idioma porque está asociado a una serie.', 'list.php', 'Volver a intentarlo');
+                } else {
+                    $languageDeleted = deleteLanguage($idLanguage);
+                }
 
                 if ($languageDeleted) {
                     MessageHTML::showSuccessMessage('Idioma eliminado correctamente.', 'list.php', 'Volver al listado de plataformas');

@@ -1,6 +1,8 @@
 <?php 
     require_once('../../controllers/ActorController.php'); 
     require_once('../../assets/scripts/showMessage.php');
+    require_once('../../assets/scripts/validations.php');
+    require_once('../../models/Actor.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,13 +21,19 @@
     <body>
         <?php 
                 $idActor = $_GET['actorId']; 
-                $actorDeleted = deleteActor($idActor);
-
+                $actor = new Actor($idActor, null, null, null, null);
+                $isAssociated = $actor->isActorAssociatedToSeries();
+                
+                if ($isAssociated) {
+                    MessageHTML::showErrorMessage('No se puede eliminar el actor porque está asociado a una serie.', 'list.php', 'Volver a intentarlo');
+                } else {
+                    $actorDeleted = deleteActor($idActor);
                 if ($actorDeleted) {
                     MessageHTML::showSuccessMessage('Actor eliminado correctamente.', 'list.php', 'Volver al listado de actors');
                 } else {
                     MessageHTML::showErrorMessage('La actor no se ha eliminado correctamente.', 'list.php', 'Volver a intentarlo');
                 }
+            }
 
             ?>
 

@@ -126,5 +126,17 @@
             //$mysqli->close();
             return $itemObject; 
         }
+
+        function isActorAssociatedToSeries(){
+            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $query = $mysqli->query('SELECT * FROM ActorSeries WHERE actor_id = ' . $this->id);  
+            $isAssociated = false; 
+
+            if ($query->num_rows != 0) {
+                $isAssociated = true; 
+            }
+            $mysqli->close();
+            return $isAssociated;
+        }
     }
 ?>

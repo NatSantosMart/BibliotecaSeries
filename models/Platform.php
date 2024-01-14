@@ -101,5 +101,16 @@
             //$mysqli->close();
             return $itemObject; 
         }
+
+        function isPlatformAssociatedToSeries(){
+            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $query = $mysqli->query('SELECT * FROM Series WHERE idPlatform = ' . $this->id);  
+            $isAssociated = false; 
+
+            if ($query->num_rows != 0) {
+                $isAssociated = true; 
+            }
+            return $isAssociated; 
+        }
     }
 ?>

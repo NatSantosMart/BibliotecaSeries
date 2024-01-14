@@ -126,5 +126,17 @@
             //$mysqli->close();
             return $itemObject; 
         }
+
+        function isDirectorAssociatedToSeries(){
+            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $query = $mysqli->query('SELECT * FROM Series WHERE idDirector = ' . $this->id);  
+            $isAssociated = false; 
+
+            if ($query->num_rows != 0) {
+                $isAssociated = true; 
+            }
+            $mysqli->close();
+            return $isAssociated; 
+        }
     }
 ?>

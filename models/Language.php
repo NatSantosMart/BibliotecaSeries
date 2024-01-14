@@ -108,5 +108,16 @@
             //$mysqli->close();
             return $itemObject; 
         }
+
+        function isLanguageAssociatedToSeries(){
+            $mysqli = DBConnection::getInstance()->getConnection(); 
+            $query = $mysqli->query('SELECT * FROM Series WHERE idLanguage = ' . $this->id);  
+            $isAssociated = false; 
+
+            if ($query->num_rows != 0) {
+                $isAssociated = true; 
+            }
+            return $isAssociated; 
+        }
     }
 ?>
