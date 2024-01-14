@@ -21,10 +21,12 @@ class LanguageSeriesSubtitles {
     public function getIdLanguage(){
         return $this->language_id; 
     }
-    public static function getLanguagesSubtitlesForSeries($seriesId) {
+
+    //getLanguagesSubtitlesForSeries
+     function getAll() {
         $mysqli = DBConnection::getInstance()->getConnection();
 
-        $query = $mysqli->query("SELECT language_id FROM LanguageSeriesSubtitles WHERE series_id = $seriesId");
+        $query = $mysqli->query("SELECT language_id FROM LanguageSeriesSubtitles WHERE series_id = " . $this->series_id);
         $languagesSubtitles = [];
 
         foreach ($query as $item) {
@@ -33,9 +35,9 @@ class LanguageSeriesSubtitles {
         return $languagesSubtitles;
     }
 
-    public static function associateLanguageToSeries($seriesId, $languageId) {
+    function store() {
         $mysqli = DBConnection::getInstance()->getConnection();
-        $insertQuery = "INSERT INTO LanguageSeriesSubtitles (series_id, language_id) VALUES ($seriesId, $languageId)";
+        $insertQuery = "INSERT INTO LanguageSeriesSubtitles (series_id, language_id) VALUES ($this->series_id, $this->language_id)";
         $result = $mysqli->query($insertQuery);
         return $result;
     }

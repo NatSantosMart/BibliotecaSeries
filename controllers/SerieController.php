@@ -1,8 +1,8 @@
 <?php
 require_once('../../models/Serie.php');
-require_once('../../models/ActorsSeries.php');
-require_once('../../models/LanguageSeriesAudio.php');
-require_once('../../models/LanguageSeriesSubtitles.php');
+require_once('../../controllers/ActorsSeriesController.php');
+require_once('../../controllers/LanguageSeriesAudioController.php');
+require_once('../../controllers/LanguageSeriesSubtitlesController.php');
 
 function listSeries() {
     $model = new Serie(null, null, null, null); 
@@ -25,17 +25,17 @@ function storeSeries($title, $platformId, $directorId, $actors, $languagesAudio,
 
         // Asociar actores a la serie
         foreach ($actors as $actorId) {
-            ActorsSeries::associateActorToSeries($seriesId, $actorId);
+            storeActorForSeries($seriesId, $actorId);
         }
 
         // Asociar idiomas de audio a la serie
         foreach ($languagesAudio as $languageId) {
-            LanguageSeriesAudio::associateLanguageToSeries($seriesId, $languageId);
+            storeLanguageAudioForSeries($seriesId, $languageId);         
         }
 
         // Asociar idiomas de subtítulos a la serie
         foreach ($languagesSubtitles as $languageId) {
-            LanguageSeriesSubtitles::associateLanguageToSeries($seriesId, $languageId);
+            storeLanguageSubtitlesForSeries($seriesId, $languageId);
         }
     }
 

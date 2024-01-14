@@ -21,10 +21,12 @@ class LanguageSeriesAudio {
     public function getIdLanguage(){
         return $this->language_id; 
     }
-    public static function getLanguagesAudioForSeries($seriesId) {
+
+    //getLanguagesAudioForSeries
+    function getAll() {
         $mysqli = DBConnection::getInstance()->getConnection();
 
-        $query = $mysqli->query("SELECT language_id FROM LanguageSeriesAudio WHERE series_id = $seriesId");
+        $query = $mysqli->query("SELECT language_id FROM LanguageSeriesAudio WHERE series_id = " . $this->series_id);
         $languagesAudio = [];
 
         foreach ($query as $item) {
@@ -33,10 +35,10 @@ class LanguageSeriesAudio {
         return $languagesAudio;
     }
 
-    public static function associateLanguageToSeries($seriesId, $languageId) {
+    function store() {
         $mysqli = DBConnection::getInstance()->getConnection();
 
-        $insertQuery = "INSERT INTO LanguageSeriesAudio (series_id, language_id) VALUES ($seriesId, $languageId)";
+        $insertQuery = "INSERT INTO LanguageSeriesAudio (series_id, language_id) VALUES ($this->series_id, $this->language_id)";
 
         $result = $mysqli->query($insertQuery);
 

@@ -3,11 +3,12 @@
     require_once('../../controllers/PlatformController.php');
     require_once('../../controllers/DirectorController.php');
     require_once('../../controllers/LanguageController.php');
+    require_once('../../controllers/ActorsSeriesController.php');
+    require_once('../../controllers/LanguageSeriesAudioController.php');
+    require_once('../../controllers/LanguageSeriesSubtitlesController.php');
     require_once('../../models/Director.php');
     require_once('../../models/Actor.php');
-    require_once('../../models/ActorsSeries.php');
-    require_once('../../models/LanguageSeriesAudio.php');
-    require_once('../../models/LanguageSeriesSubtitles.php');
+
     require_once('../../models/Platform.php');
     require_once('../../assets/scripts/showMessage.php');
     
@@ -87,9 +88,7 @@
                             <td>
                                 <?php 
                                     $idSerie = $serie->getId();
-                                    $actorsSerie = new ActorsSeries(null, null); 
-                                    $actors = $actorsSerie->getActorsForSeries($idSerie); 
-
+                                    $actors = listActorsForSeries($idSerie); 
                                     $actorNames = array(); // Array para almacenar nombres y apellidos
 
                                     foreach($actors as $actorId){
@@ -105,8 +104,7 @@
                             <td>
                                 <?php 
                                     $idSerie = $serie-> getId();
-                                    $languageSerie = new LanguageSeriesAudio(null, null); 
-                                    $languages = $languageSerie->getLanguagesAudioForSeries($idSerie); 
+                                    $languages = listLanguageAudiosForSeries($idSerie); 
                                     $languageNames = array();
 
                                     foreach($languages as $languageId){
@@ -120,9 +118,7 @@
                             <td>
                                 <?php 
                                     $idSerie = $serie-> getId();
-                                    $languageSerie = new LanguageSeriesSubtitles(null, null); 
-                                    $languages = $languageSerie->getLanguagesSubtitlesForSeries($idSerie); 
-
+                                    $languages = listLanguageSubtitlessForSeries($idSerie); 
                                     $languageNames = array(); 
 
                                     foreach($languages as $languageId){

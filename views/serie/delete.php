@@ -1,5 +1,5 @@
 <?php 
-    require_once('../../controllers/PlatformController.php'); 
+    require_once('../../controllers/SerieController.php'); 
     require_once('../../assets/scripts/showMessage.php');
 ?>
 <!DOCTYPE html>

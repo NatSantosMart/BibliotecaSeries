@@ -4,6 +4,9 @@ require_once('../../controllers/LanguageController.php');
 require_once('../../controllers/DirectorController.php');
 require_once('../../controllers/ActorController.php');
 require_once('../../controllers/SerieController.php');
+require_once('../../controllers/ActorsSeriesController.php');
+require_once('../../controllers/LanguageSeriesAudioController.php');
+require_once('../../controllers/LanguageSeriesSubtitlesController.php');
 require_once('../../assets/scripts/showMessage.php');
 require_once('../../assets/scripts/validations.php');
 ?>
@@ -41,6 +44,7 @@ require_once('../../assets/scripts/validations.php');
         if ($action === 'edit') {
             $idSeries = $_GET['id'];
             $seriesObject = getSeriesData($idSeries);
+            $actorsSeriesObject = getSeriesData($idSeries);
 
             $seriesEdited = false;
             if (isset($_POST['buttonCreateEdit'])) {
@@ -146,12 +150,6 @@ require_once('../../assets/scripts/validations.php');
                                     }
                                     ?>
                                 </select>
-                                <script>
-                                    // Inicializar Chosen en tu select
-                                    $(document).ready(function(){
-                                        $(".chosen-select").chosen();
-                                    });
-                                </script>
                             </div>
                         </div>
                         <div class="row">
@@ -166,12 +164,6 @@ require_once('../../assets/scripts/validations.php');
                                         }
                                         ?>
                                     </select>
-                                    <script>
-                                        // Inicializar Chosen en tu select
-                                        $(document).ready(function(){
-                                            $(".chosen-select").chosen();
-                                        });
-                                    </script>
                                 </div>
                                 <div class="col-6">
                                     <label for="itemLanguageSubtitlesId" class="form-label">Idiomas subtítulos: </label>
@@ -184,12 +176,6 @@ require_once('../../assets/scripts/validations.php');
                                         }
                                         ?>
                                     </select>
-                                    <script>
-                                        // Inicializar Chosen en tu select
-                                        $(document).ready(function(){
-                                            $(".chosen-select").chosen();
-                                        });
-                                    </script>
                                 </div>
                         </div>
                         <div class="row">
@@ -216,6 +202,12 @@ require_once('../../assets/scripts/validations.php');
         }
         ?>
     </div>
+    <script>
+        // Inicializar Chosen en tu select
+        $(document).ready(function(){
+            $(".chosen-select").chosen();
+        });
+    </script>
 </body>
 
 </html>
