@@ -22,8 +22,8 @@
                 $platform = new Platform($idPlatform, null);
                 $isAssociated = $platform->isPlatformAssociatedToSeries();
 
-                if (!$platformDeleted) {
-                    MessageHTML::showErrorMessage('No se puede eliminar la plataforma porque está asociada a una serie.', 'list.php', 'Volver a intentarlo');
+                if ($isAssociated) {
+                    MessageHTML::showErrorMessage('No se puede eliminar la plataforma porque está asociada a una serie. ', 'Debe eliminar primero la serie.', 'list.php', 'Volver a intentarlo');
                 } else {
                     $platformDeleted = deletePlatform($idPlatform);
                 }

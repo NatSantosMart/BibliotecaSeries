@@ -49,7 +49,6 @@
                     $platformCreated = true;
                 }
             }
-            $mysqli->close(); 
             return $platformCreated; 
         }   
 
@@ -68,7 +67,6 @@
                     $platformEdited = true;
                 }
             }
-            $mysqli->close(); 
             return $platformEdited; 
         }  
         
@@ -86,7 +84,6 @@
                     $platformDeleted = true;
                 }
             }
-            $mysqli->close(); 
             return $platformDeleted; 
         }
 

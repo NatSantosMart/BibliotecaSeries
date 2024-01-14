@@ -1,5 +1,7 @@
 <?php 
     require_once('../../controllers/LanguageController.php'); 
+    require_once('../../models/LanguageSeriesAudio.php'); 
+    require_once('../../models/LanguageSeriesSubtitles.php'); 
     require_once('../../assets/scripts/showMessage.php');
 ?>
 <!DOCTYPE html>
@@ -19,11 +21,15 @@
     <body>
         <?php 
                 $idLanguage = $_GET['languageId']; 
-                $language = new Language($idLanguage, null, null);
-                $isAssociated = $language->isLanguageAssociatedToSeries();
+
+                $languageAudio = new LanguageSeriesAudio(null, $idLanguage);
+                $isAssociatedAudio = $languageAudio->isLanguageAssociatedToSeries();
+
+                $languageSubtitles = new LanguageSeriesSubtitles(null, $idLanguage);
+                $isAssociatedSubtitles = $languageSubtitles->isLanguageAssociatedToSeries();
                
-                if ($isAssociated) {
-                    MessageHTML::showErrorMessage('No se puede eliminar el idioma porque está asociado a una serie.', 'list.php', 'Volver a intentarlo');
+                if ($isAssociatedAudio || $isAssociatedSubtitles) {
+                    MessageHTML::showErrorMessage('No se puede eliminar el idioma porque está asociado a una serie.' , ' Debe eliminar primero la serie.','list.php', 'Volver a intentarlo');
                 } else {
                     $languageDeleted = deleteLanguage($idLanguage);
                 }

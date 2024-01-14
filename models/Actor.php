@@ -73,7 +73,6 @@
                     $actorCreated = true;
                 }
             }
-            $mysqli->close(); 
             return $actorCreated; 
         }   
 
@@ -93,7 +92,7 @@
                     $actorEdited = true;
                 }
             }
-            $mysqli->close(); 
+
             return $actorEdited; 
         }  
         
@@ -111,7 +110,6 @@
                     $actorDeleted = true;
                 }
             }
-            $mysqli->close(); 
             return $actorDeleted; 
         }
 
@@ -123,20 +121,7 @@
                 $itemObject = new Actor($item["id"], $item["name"], $item["surnames"], $item["birthdate"], $item["nationality"]); 
                 break; 
             }
-            //$mysqli->close();
             return $itemObject; 
-        }
-
-        function isActorAssociatedToSeries(){
-            $mysqli = DBConnection::getInstance()->getConnection(); 
-            $query = $mysqli->query('SELECT * FROM ActorSeries WHERE actor_id = ' . $this->id);  
-            $isAssociated = false; 
-
-            if ($query->num_rows != 0) {
-                $isAssociated = true; 
-            }
-            $mysqli->close();
-            return $isAssociated;
         }
     }
 ?>

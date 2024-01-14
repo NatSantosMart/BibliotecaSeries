@@ -21,8 +21,9 @@
                 $idDirector = $_GET['directorId']; 
                 $director = new Director($idDirector, null, null, null, null);
                 $isAssociated = $director->isDirectorAssociatedToSeries();
+
                 if ($isAssociated) {
-                    MessageHTML::showErrorMessage('No se puede eliminar el director porque está asociado a una serie.', 'list.php', 'Volver a intentarlo');
+                    MessageHTML::showErrorMessage('No se puede eliminar el director porque está asociado a una serie.', ' Debe eliminar primero la serie.', 'list.php', 'Volver a intentarlo');
                 } else {
                     $directorDeleted = deleteDirector($idDirector);
                 if ($directorDeleted) {

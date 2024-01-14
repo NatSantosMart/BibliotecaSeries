@@ -56,7 +56,6 @@
                     $languageCreated = true;
                 }
             }
-            $mysqli->close(); 
             return $languageCreated; 
         }   
 
@@ -75,7 +74,6 @@
                     $languageEdited = true;
                 }
             }
-            $mysqli->close(); 
             return $languageEdited; 
         }  
         
@@ -93,7 +91,6 @@
                     $languageDeleted = true;
                 }
             }
-            $mysqli->close(); 
             return $languageDeleted; 
         }
 
@@ -105,13 +102,12 @@
                 $itemObject = new Language($item["id"], $item["name"], $item["ISOCode"]); 
                 break; 
             }
-            //$mysqli->close();
             return $itemObject; 
         }
 
         function isLanguageAssociatedToSeries(){
             $mysqli = DBConnection::getInstance()->getConnection(); 
-            $query = $mysqli->query('SELECT * FROM Series WHERE idLanguage = ' . $this->id);  
+            $query = $mysqli->query('SELECT * FROM Serie WHERE idLanguage = ' . $this->id);  
             $isAssociated = false; 
 
             if ($query->num_rows != 0) {

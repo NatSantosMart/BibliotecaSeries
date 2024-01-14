@@ -116,7 +116,6 @@
                     $SerieEdited = true;
                 }
             }
-            $mysqli->close(); 
             return $SerieEdited; 
         }  
         
@@ -134,7 +133,6 @@
                     $SerieDeleted = true;
                 }
             }
-            $mysqli->close(); 
             return $SerieDeleted; 
         }
 

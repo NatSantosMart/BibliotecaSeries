@@ -73,7 +73,6 @@
                     $directorCreated = true;
                 }
             }
-            $mysqli->close(); 
             return $directorCreated; 
         }   
 
@@ -93,7 +92,6 @@
                     $directorEdited = true;
                 }
             }
-            $mysqli->close(); 
             return $directorEdited; 
         }  
         
@@ -123,19 +121,17 @@
                 $itemObject = new Director($item["id"], $item["name"], $item["surnames"], $item["birthdate"], $item["nationality"]); 
                 break; 
             }
-            //$mysqli->close();
             return $itemObject; 
         }
 
         function isDirectorAssociatedToSeries(){
             $mysqli = DBConnection::getInstance()->getConnection(); 
-            $query = $mysqli->query('SELECT * FROM Series WHERE idDirector = ' . $this->id);  
+            $query = $mysqli->query('SELECT * FROM Serie WHERE director_id = ' . $this->id);  
             $isAssociated = false; 
 
             if ($query->num_rows != 0) {
                 $isAssociated = true; 
             }
-            $mysqli->close();
             return $isAssociated; 
         }
     }
