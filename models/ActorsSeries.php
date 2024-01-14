@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../utils/DBConnection.php');
 
-class ActorSeriesModel {
+class ActorsSeries {
     public static function getActorsForSeries($seriesId) {
         $mysqli = DBConnection::getInstance()->getConnection();
 
@@ -36,8 +36,6 @@ class ActorSeriesModel {
         $insertQuery = "INSERT INTO ActorSeries (series_id, actor_id) VALUES ($seriesId, $actorId)";
 
         $result = $mysqli->query($insertQuery);
-
-        $mysqli->close();
 
         return $result;
     }

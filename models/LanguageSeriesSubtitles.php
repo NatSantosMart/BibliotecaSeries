@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../utils/DBConnection.php');
 
-class LanguageSeriesSubtitlesModel {
+class LanguageSeriesSubtitles {
     public static function getLanguagesSubtitlesForSeries($seriesId) {
         $mysqli = DBConnection::getInstance()->getConnection();
 

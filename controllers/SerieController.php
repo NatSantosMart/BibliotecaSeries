@@ -11,7 +11,7 @@ function listSeries() {
 
     foreach($seriesList as $serieItem){
         $seriesObject = new Serie($serieItem->getId(), $serieItem->getTitle(),  $serieItem->getPlatformId(),  $serieItem->getDirectorId()); 
-        array_push($serieObjectArray, $seriesObject); 
+        $seriesObjectArray[] = $seriesObject;
     }
     return $seriesObjectArray; 
 }
@@ -20,22 +20,22 @@ function storeSeries($title, $platformId, $directorId, $actors, $languagesAudio,
     $newSeries = new Serie(null, $title, $platformId, $directorId);
     $seriesCreated = $newSeries->store();
 
-    if ($seriesCreated) {
-        $seriesId = $newSeries->getId();
+    if ($seriesCreated["isSerieCreated"]) {
+        $seriesId = $seriesCreated["seriesIdCreated"];
 
         // Asociar actores a la serie
         foreach ($actors as $actorId) {
-            ActorSeriesModel::associateActorToSeries($seriesId, $actorId);
+            ActorsSeries::associateActorToSeries($seriesId, $actorId);
         }
 
         // Asociar idiomas de audio a la serie
         foreach ($languagesAudio as $languageId) {
-            LanguageSeriesAudioModel::associateLanguageToSeries($languageId, $seriesId);
+            LanguageSeriesAudio::associateLanguageToSeries($languageId, $seriesId);
         }
 
         // Asociar idiomas de subtítulos a la serie
         foreach ($languagesSubtitles as $languageId) {
-            LanguageSeriesSubtitlesModel::associateLanguageToSeries($languageId, $seriesId);
+            LanguageSeriesSubtitles::associateLanguageToSeries($languageId, $seriesId);
         }
     }
 

@@ -1,5 +1,9 @@
 <?php
     require_once('../../controllers/SerieController.php');
+    require_once('../../controllers/PlatformController.php');
+    require_once('../../controllers/DirectorController.php');
+    require_once('../../models/Director.php');
+    require_once('../../models/Platform.php');
     require_once('../../assets/scripts/showMessage.php');
     
 ?>
@@ -52,10 +56,25 @@
                                 <?php echo $serie->getTitle(); ?>
                             </td>
                             <td>
-                                <?php echo $serie->getPlatformId(); ?>
+                                <?php 
+                                    $platformId = $serie->getPlatformId(); 
+                                    $platformObject = new Platform($platformId, null); 
+
+                                    echo $platformObject->getItem()->getName();  
+
+                                 ?>
                             </td>
                             <td>
-                                <?php echo $serie->getDirectorId(); ?>
+                                <?php 
+                                    $directorId = $serie->getDirectorId(); 
+                                    $directorObject = new Director($directorId, null, null, null, null); 
+
+                                    $directorName = $directorObject->getItem()->getName(); 
+                                    $directorSurname = $directorObject->getItem()->getSurnames(); 
+
+                                    echo $directorName . ' ' .  $directorSurname;  
+
+                                 ?>
                             </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">

@@ -81,9 +81,8 @@ require_once('../../assets/scripts/validations.php');
                     if (!empty($errorsEmptyFields) || !empty($errors)) {
                         MessageHTML::showErrorMessage("La serie no se ha creado correctamente." . $errorMessage, $incorrectFields, 'list.php', 'Volver al listado de series');
                     } else {
-                        $seriesCreated = storeSeries($_POST['itemTitle'], $_POST['itemPlatformId'], $_POST['itemDirectorId'], $actors,
-                        $languagesAudio,
-                        $languagesSubtitles);
+                        $seriesCreated = storeSeries($_POST['itemTitle'], $_POST['itemPlatformId'], $_POST['itemDirectorId'], 
+                                                    $_POST['itemActorId'],$_POST['itemLanguageAudioId'],$_POST['itemLanguageSubtitlesId']);
                     }
                 }
             }

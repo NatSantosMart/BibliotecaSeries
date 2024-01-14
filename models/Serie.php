@@ -20,22 +20,22 @@
         public function getId(){
             return $this->id; 
         }
-        public function settitle($title){
+        public function setTitle($title){
             $this->title = $title; 
         }
-        public function gettitle(){
+        public function getTitle(){
             return $this->title; 
         }
-        public function setplatform($platformId){
+        public function setPlatformId($platformId){
             $this->platformId = $platformId; 
         }
-        public function getplatform(){
+        public function getPlatformId(){
             return $this->platformId; 
         }
-        public function setdirector($directorId){
+        public function setDirectorId($directorId){
             $this->directorId = $directorId; 
         }
-        public function getdirector(){
+        public function getDirectorId(){
             return $this->directorId; 
         }
 
@@ -62,38 +62,42 @@
         public function setLanguagesSubtitles($languagesSubtitles) {
             $this->languagesSubtitles = $languagesSubtitles;
         }
-
-        
-       
+  
         function getAll() {
             $mysqli = DBConnection::getInstance()->getConnection();
             $query = $mysqli->query('SELECT * FROM Serie');  
             $listData = []; 
 
             foreach($query as $item){
-                $itemObject = new Serie($item["id"], $item["title"], $item["platform"],$item["director"]); 
+                $itemObject = new Serie($item["id"], $item["title"], $item["platform_id"],$item["director_id"]); 
                 array_push($listData, $itemObject); 
             }
-            $mysqli->close(); 
+            
             return $listData; 
         }
 
         function store(){
-            $SerieCreated = false; 
+            $serieCreated = false; 
+            $resultInsert = null; 
+            $serieInsertId = null; 
             $mysqli = DBConnection::getInstance()->getConnection(); 
 
-            $resultExistingSerie = $mysqli->query("SELECT title FROM Serie WHERE title = '$this->title' AND platform = '$this->platformId'");
+            $resultExistingSerie = $mysqli->query("SELECT title FROM Serie WHERE title = '$this->title' AND platform_id = '$this->platformId'");
 
             if ($resultExistingSerie->num_rows == 0) {
                 // No existe un Serie con el mismo nombre, se puede crear
-                $insertQuery = "INSERT INTO Serie (title, platform, director, actor, languageAudio, languageSubtitle) VALUES ('$this->title', '$this->platformId', '$this->directorId'')";
+                $insertQuery = "INSERT INTO Serie (title, platform_id, director_id) VALUES ('$this->title', '$this->platformId', '$this->directorId')";
 
                 if ($resultInsert = $mysqli->query($insertQuery)) {
-                    $SerieCreated = true;
+                    $serieCreated = true;
+                   $serieInsertId = $mysqli->insert_id;
                 }
             }
-            $mysqli->close(); 
-            return $SerieCreated; 
+          
+            return [
+                "isSerieCreated" => $serieCreated,
+                "seriesIdCreated" => $serieInsertId
+            ];
         }   
 
         function update(){
@@ -105,7 +109,7 @@
 
             if ($resultExistingSerie->num_rows == 0) {
                 // No existe una serie con el mismo nombre, se puede editar
-                $updateQuery = "UPDATE Serie SET title = '$this->title', platform = '$this->platformId', director = '$this->directorId'
+                $updateQuery = "UPDATE Serie SET title = '$this->title', platform_id = '$this->platformId', director_id = '$this->directorId'
                                 WHERE id = $this->id";
 
                 if ($resultUpdate = $mysqli->query($updateQuery)) {
@@ -139,7 +143,7 @@
             $query = $mysqli->query('SELECT * FROM Serie WHERE id = ' . $this->id);  
 
             foreach($query as $item){
-                $itemObject = new Serie($item["id"], $item["title"], $item["platform"], $item["director"]); 
+                $itemObject = new Serie($item["id"], $item["title"], $item["platform_id"], $item["director_id"]); 
 
                 // $actors = ActorSeriesModel::getActorsForSeries($this->id);
                 // $languagesAudio = LanguageSeriesAudioModel::getLanguagesAudioForSeries($this->id);

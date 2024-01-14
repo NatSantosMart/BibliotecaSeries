@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../utils/DBConnection.php');
 
-class LanguageSeriesAudioModel {
+class LanguageSeriesAudio {
     public static function getLanguagesAudioForSeries($seriesId) {
         $mysqli = DBConnection::getInstance()->getConnection();
 
