@@ -12,7 +12,7 @@ class LanguageSeriesSubtitles {
             $languagesSubtitles[] = $item["language_id"];
         }
 
-        $mysqli->close();
+ 
         return $languagesSubtitles;
     }
 
@@ -22,8 +22,6 @@ class LanguageSeriesSubtitles {
         $insertQuery = "INSERT INTO LanguageSeriesSubtitles (series_id, language_id) VALUES ($seriesId, $languageId)";
 
         $result = $mysqli->query($insertQuery);
-
-        $mysqli->close();
 
         return $result;
     }

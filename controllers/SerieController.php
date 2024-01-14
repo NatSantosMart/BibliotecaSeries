@@ -30,12 +30,12 @@ function storeSeries($title, $platformId, $directorId, $actors, $languagesAudio,
 
         // Asociar idiomas de audio a la serie
         foreach ($languagesAudio as $languageId) {
-            LanguageSeriesAudio::associateLanguageToSeries($languageId, $seriesId);
+            LanguageSeriesAudio::associateLanguageToSeries($seriesId, $languageId);
         }
 
         // Asociar idiomas de subtítulos a la serie
         foreach ($languagesSubtitles as $languageId) {
-            LanguageSeriesSubtitles::associateLanguageToSeries($languageId, $seriesId);
+            LanguageSeriesSubtitles::associateLanguageToSeries($seriesId, $languageId);
         }
     }
 

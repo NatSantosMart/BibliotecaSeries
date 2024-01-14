@@ -11,8 +11,6 @@ class LanguageSeriesAudio {
         foreach ($query as $item) {
             $languagesAudio[] = $item["language_id"];
         }
-
-        $mysqli->close();
         return $languagesAudio;
     }
 
@@ -22,8 +20,6 @@ class LanguageSeriesAudio {
         $insertQuery = "INSERT INTO LanguageSeriesAudio (series_id, language_id) VALUES ($seriesId, $languageId)";
 
         $result = $mysqli->query($insertQuery);
-
-        $mysqli->close();
 
         return $result;
     }

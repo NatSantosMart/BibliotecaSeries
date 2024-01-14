@@ -2,7 +2,12 @@
     require_once('../../controllers/SerieController.php');
     require_once('../../controllers/PlatformController.php');
     require_once('../../controllers/DirectorController.php');
+    require_once('../../controllers/LanguageController.php');
     require_once('../../models/Director.php');
+    require_once('../../models/Actor.php');
+    require_once('../../models/ActorsSeries.php');
+    require_once('../../models/LanguageSeriesAudio.php');
+    require_once('../../models/LanguageSeriesSubtitles.php');
     require_once('../../models/Platform.php');
     require_once('../../assets/scripts/showMessage.php');
     
@@ -42,6 +47,9 @@
                         <th>Título</th>
                         <th>Plataforma</th>
                         <th>Director</th>
+                        <th>Actores</th>
+                        <th>Idiomas audio</th>
+                        <th>Idiomas subtítulos</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
@@ -74,6 +82,55 @@
 
                                     echo $directorName . ' ' .  $directorSurname;  
 
+                                 ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    $idSerie = $serie->getId();
+                                    $actorsSerie = new ActorsSeries(null, null); 
+                                    $actors = $actorsSerie->getActorsForSeries($idSerie); 
+
+                                    $actorNames = array(); // Array para almacenar nombres y apellidos
+
+                                    foreach($actors as $actorId){
+                                        $actorObject = new Actor($actorId, null, null, null, null); 
+                                        $actorName = $actorObject->getItem()->getName(); 
+                                        $actorSurname = $actorObject->getItem()->getSurnames(); 
+                                        $actorNames[] = $actorName . ' ' . $actorSurname;
+                                    }
+
+                                    echo implode(', ', $actorNames);
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    $idSerie = $serie-> getId();
+                                    $languageSerie = new LanguageSeriesAudio(null, null); 
+                                    $languages = $languageSerie->getLanguagesAudioForSeries($idSerie); 
+                                    $languageNames = array();
+
+                                    foreach($languages as $languageId){
+                                        $languageObject = new Language($languageId, null, null); 
+                                        $languageNames[] = $languageObject->getItem()->getName();
+                                    }
+
+                                    echo implode(', ', $languageNames);
+                                 ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    $idSerie = $serie-> getId();
+                                    $languageSerie = new LanguageSeriesSubtitles(null, null); 
+                                    $languages = $languageSerie->getLanguagesSubtitlesForSeries($idSerie); 
+
+                                    $languageNames = array(); 
+
+                                    foreach($languages as $languageId){
+                                        $languageObject = new Language($languageId, null, null); 
+                                        $languageNames[] = $languageObject->getItem()->getName();
+                                    }
+                            
+                                    echo implode(', ', $languageNames);
                                  ?>
                             </td>
                             <td>

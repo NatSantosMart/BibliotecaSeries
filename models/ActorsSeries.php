@@ -11,8 +11,6 @@ class ActorsSeries {
         foreach ($query as $item) {
             $actors[] = $item["actor_id"];
         }
-
-        $mysqli->close();
         return $actors;
     }
 
